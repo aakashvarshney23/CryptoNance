@@ -47,6 +47,7 @@ const firebaseAuth = {
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
+
     ]
 })
 export class AppModule {
