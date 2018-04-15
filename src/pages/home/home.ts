@@ -1,30 +1,34 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {AlertController} from 'ionic-angular';
+
+import {LoginPage} from '../login/login';
+import {RegisterPage} from '../register/register';
+import {LoggedinPage} from '../loggedin/loggedin';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(private alertCtrl: AlertController) {
+
+    @ViewChild('username') uname;
+    @ViewChild('password') password;
+
+    constructor(private alertCtrl: AlertController, public navCtrl: NavController) {
 
 
-  }
+    }
 
-  openIt() {
-     let alert = this.alertCtrl.create ({
-       title: "Why",
-       subTitle: "I told you not to click",
-       buttons: [
-         {
-           text: "Apologize"
-         }
-       ]
-     })
-     alert.present();
-  }
+    signIn() {
+        this.navCtrl.push(LoginPage);
+
+    }
+
+    register() {
+        this.navCtrl.push(RegisterPage);
+    }
 
 }
 
