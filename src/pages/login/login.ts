@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {LoggedinPage} from '../loggedin/loggedin';
+import {AccountPage} from '../accountpage/accountpage';
 
 /**
  * Generated class for the LoginPage page.
@@ -12,8 +13,8 @@ import {LoggedinPage} from '../loggedin/loggedin';
 
 @IonicPage()
 @Component({
-    selector: 'page-login',
-    templateUrl: 'login.html',
+     selector: 'page-login',
+     templateUrl: 'login.html',
 })
 export class LoginPage {
 
