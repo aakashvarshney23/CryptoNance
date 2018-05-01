@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {LoggedinPage} from '../loggedin/loggedin';
-import {AccountPage} from '../accountpage/accountpage';
+
+import {TabsPage} from '../tabs/tabs';
 
 /**
  * Generated class for the LoginPage page.
@@ -41,7 +41,7 @@ export class LoginPage {
             .then(data => {
                 console.log('got data', this.fire.auth.currentUser.displayName);
                 this.alert('Success! You are logged in');
-                this.navCtrl.setRoot(LoggedinPage);
+                this.navCtrl.setRoot(TabsPage);
 
             })
             .catch(error => {

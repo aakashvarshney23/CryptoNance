@@ -10,7 +10,7 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
-import {LoggedinPage} from '../pages/loggedin/loggedin';
+
 import {BitcoinPage} from '../pages/currencypage/bitcoinpage/bitcoinpage';
 import {LitecoinPage} from '../pages/currencypage/litecoinpage/litecoinpage';
 import {EthereumPage} from '../pages/currencypage/ethereumpage/ethereumpage';
@@ -18,6 +18,8 @@ import {RipplePage} from '../pages/currencypage/ripplepage/ripplepage';
 
 import {AccountPage} from "../pages/accountpage/accountpage";
 import {CurrencyPage} from "../pages/currencypage/currencypage";
+import {TabsPage} from "../pages/tabs/tabs";
+import { HashTableProvider } from '../providers/hash-table/hash-table';
 
 const firebaseAuth = {
     apiKey: "AIzaSyC4bTy3yTV6NAdtLTLi8yZSiXc7bAv_nYU",
@@ -34,13 +36,14 @@ const firebaseAuth = {
         HomePage,
         LoginPage,
         RegisterPage,
-        LoggedinPage,
+        
         AccountPage,
         BitcoinPage,
         CurrencyPage,
         EthereumPage,
         LitecoinPage,
-        RipplePage
+        RipplePage,
+        TabsPage
     ],
     imports: [
         BrowserModule,
@@ -54,20 +57,20 @@ const firebaseAuth = {
         HomePage,
         LoginPage,
         RegisterPage,
-        LoggedinPage,
+       
         AccountPage,
         BitcoinPage,
         CurrencyPage,
         EthereumPage,
         LitecoinPage,
-        RipplePage
+        RipplePage, 
+        TabsPage
     ],
     providers: [
         StatusBar,
         SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
-
-
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        HashTableProvider
     ]
 })
 export class AppModule {

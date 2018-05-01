@@ -4,7 +4,7 @@ import {AlertController} from 'ionic-angular';
 
 import {LoginPage} from '../login/login';
 import {RegisterPage} from '../register/register';
-import {LoggedinPage} from '../loggedin/loggedin';
+
 import {BitcoinPage} from '../currencypage/bitcoinpage/bitcoinpage';
 
 @Component({
