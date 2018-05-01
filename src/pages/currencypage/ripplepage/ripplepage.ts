@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {CurrencyPage} from "../currencypage";
 
 /**
  * Generated class for the RipplePage page.
@@ -31,6 +32,9 @@ export class RipplePage {
         }).present();
     }
 
+    goback_currencypage(){
+        this.navCtrl.push(CurrencyPage);
+    }
 
 }
 

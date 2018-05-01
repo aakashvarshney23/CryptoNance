@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angula
 import {AngularFireAuth} from 'angularfire2/auth';
 
 import {HashTableProvider} from '../../../providers/hash-table/hash-table';
+import {CurrencyPage} from "../currencypage";
 /**
  * Generated class for the BitcoinPage page.
  *
@@ -33,6 +34,9 @@ export class BitcoinPage {
         }).present();
     }
 
+    goback_currencypage(){
+        this.navCtrl.push(CurrencyPage);
+    }
 
 }
 

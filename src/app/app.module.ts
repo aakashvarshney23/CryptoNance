@@ -19,7 +19,8 @@ import {RipplePage} from '../pages/currencypage/ripplepage/ripplepage';
 import {AccountPage} from "../pages/accountpage/accountpage";
 import {CurrencyPage} from "../pages/currencypage/currencypage";
 import {TabsPage} from "../pages/tabs/tabs";
-import { HashTableProvider } from '../providers/hash-table/hash-table';
+import {HashTableProvider} from '../providers/hash-table/hash-table';
+import {Hashtable} from '../pages/hashtable/hashtable'
 
 const firebaseAuth = {
     apiKey: "AIzaSyC4bTy3yTV6NAdtLTLi8yZSiXc7bAv_nYU",
@@ -43,7 +44,8 @@ const firebaseAuth = {
         EthereumPage,
         LitecoinPage,
         RipplePage,
-        TabsPage
+        TabsPage,
+        Hashtable
     ],
     imports: [
         BrowserModule,
@@ -64,7 +66,8 @@ const firebaseAuth = {
         EthereumPage,
         LitecoinPage,
         RipplePage, 
-        TabsPage
+        TabsPage,
+        Hashtable
     ],
     providers: [
         StatusBar,

@@ -4,8 +4,7 @@ import {AlertController} from 'ionic-angular';
 
 import {LoginPage} from '../login/login';
 import {RegisterPage} from '../register/register';
-
-import {BitcoinPage} from '../currencypage/bitcoinpage/bitcoinpage';
+import {Hashtable} from '../hashtable/hashtable'
 
 @Component({
     selector: 'page-home',
@@ -24,11 +23,14 @@ export class HomePage {
 
     signIn() {
         this.navCtrl.push(LoginPage);
-
     }
 
     register() {
         this.navCtrl.push(RegisterPage);
+    }
+
+    hash_view(){
+        this.navCtrl.push(Hashtable);
     }
 
 }

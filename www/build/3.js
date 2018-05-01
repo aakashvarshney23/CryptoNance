@@ -1,14 +1,14 @@
 webpackJsonp([3],{
 
-/***/ 328:
+/***/ 330:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RipplePageModule", function() { return RipplePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HashtableModule", function() { return HashtableModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ripplepage__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hashtable__ = __webpack_require__(110);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var RipplePageModule = /** @class */ (function () {
-    function RipplePageModule() {
+var HashtableModule = /** @class */ (function () {
+    function HashtableModule() {
     }
-    RipplePageModule = __decorate([
+    HashtableModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__ripplepage__["a" /* RipplePage */],
+                __WEBPACK_IMPORTED_MODULE_2__hashtable__["a" /* Hashtable */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ripplepage__["a" /* RipplePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__hashtable__["a" /* Hashtable */]),
             ],
         })
-    ], RipplePageModule);
-    return RipplePageModule;
+    ], HashtableModule);
+    return HashtableModule;
 }());
 
-//# sourceMappingURL=ripplepage.module.js.map
+//# sourceMappingURL=hashtable.module.js.map
 
 /***/ })
 
