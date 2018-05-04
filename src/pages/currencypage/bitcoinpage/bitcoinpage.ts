@@ -21,10 +21,9 @@ export class BitcoinPage {
     @ViewChild('username') user;
     @ViewChild('password') password;
 
-    constructor(private alertCtrl: AlertController, private fire: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public hashTable: HashTableProvider) {
-        this.hashTable.oneplusone();
+    constructor(private alertCtrl: AlertController, private fire: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public hashTable: HashTableProvider){
+    //this.hashTable.oneplusone()
     }
-
 
     alert(message: string) {
         this.alertCtrl.create({

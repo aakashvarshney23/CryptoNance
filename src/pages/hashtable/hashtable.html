@@ -1,31 +1,28 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
-    <!--<title> Transaction Mapping </title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <button ion-button icon-only (click)="goback_home();">
     <ion-icon name="arrow-back"></ion-icon>
 </button>
 
-<!--<ion-card>-->
-    <!--<ion-card-content print();>-->
-    <!--</ion-card-content>-->
-<!--</ion-card>-->
-
 <ion-card>
     <ion-card-content>
-        Hello!!!
+        <page-add-wallet>
+        </page-add-wallet>
     </ion-card-content>
 </ion-card>
 
-<ion-card>
-    <ion-card-content>
-        Heyyyy!
-    </ion-card-content>
-</ion-card>
+<div *ngIf="items?.length > 0; else noItems" > <!-- if the length of the fetched data is greater than zero -->
+    <ul *ngFor="let item of items" class="collection"> <!-- run the loop -->
+        <ion-card>
+            <button ion-button icon-only (click)= "deleteItem($event, item)" class = "collection-items" >
+                <ion-icon name = "close" ></ion-icon>
+            </button>
+            <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->
+             <strong> {{item.id}} : </strong> {{item.title}} , {{item.description}} <!-- use items.id to see the actual id of the document -->
+        </ion-card>
+   </ul>
+</div>
+
+<ng-template #noItems> <!-- run the else statement -->
+    <hr>
+    <h5> There are no items to list </h5>
+</ng-template>
+

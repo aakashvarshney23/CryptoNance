@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Hashtable } from './hashtable';
+import { Hashtable} from "../../pages/hashtable/hashtable"; //"../../providers/hash-table/hash-table";
 
 @NgModule({
     declarations: [
@@ -10,4 +10,4 @@ import { Hashtable } from './hashtable';
         IonicPageModule.forChild(Hashtable),
     ],
 })
-export class HashtableModule {}
+export class CurrencyPageModule {}

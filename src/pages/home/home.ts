@@ -4,7 +4,9 @@ import {AlertController} from 'ionic-angular';
 
 import {LoginPage} from '../login/login';
 import {RegisterPage} from '../register/register';
-import {Hashtable} from '../hashtable/hashtable'
+//import {Hashtable} from '../hashtable/hashtable'
+import {Hashtable} from "../hashtable/hashtable";
+import {AddWallet} from "../register/add-wallet/add-wallet";
 
 @Component({
     selector: 'page-home',
@@ -30,6 +32,7 @@ export class HomePage {
     }
 
     hash_view(){
+        //this.navCtrl.push(Hashtable);
         this.navCtrl.push(Hashtable);
     }
 

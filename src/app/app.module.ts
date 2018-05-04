@@ -5,6 +5,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import {FormsModule} from '@angular/forms';
 
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
@@ -21,6 +23,8 @@ import {CurrencyPage} from "../pages/currencypage/currencypage";
 import {TabsPage} from "../pages/tabs/tabs";
 import {HashTableProvider} from '../providers/hash-table/hash-table';
 import {Hashtable} from '../pages/hashtable/hashtable'
+import {AddWallet} from "../pages/register/add-wallet/add-wallet";
+
 
 const firebaseAuth = {
     apiKey: "AIzaSyC4bTy3yTV6NAdtLTLi8yZSiXc7bAv_nYU",
@@ -30,6 +34,7 @@ const firebaseAuth = {
     storageBucket: "cryptonance-444b1.appspot.com",
     messagingSenderId: "480834052882"
 };
+
 
 @NgModule({
     declarations: [
@@ -45,12 +50,15 @@ const firebaseAuth = {
         LitecoinPage,
         RipplePage,
         TabsPage,
-        Hashtable
+        Hashtable,
+        AddWallet
     ],
     imports: [
         BrowserModule,
+        FormsModule,
         IonicModule.forRoot(MyApp), //use instead of browser module
         AngularFireModule.initializeApp(firebaseAuth),
+        AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule
     ],
     bootstrap: [IonicApp],
@@ -67,7 +75,8 @@ const firebaseAuth = {
         LitecoinPage,
         RipplePage, 
         TabsPage,
-        Hashtable
+        Hashtable,
+        AddWallet
     ],
     providers: [
         StatusBar,

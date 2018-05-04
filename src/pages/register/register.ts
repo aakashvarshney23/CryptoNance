@@ -20,6 +20,7 @@ export class RegisterPage {
     @ViewChild('password') password;
 
     constructor(private alertCtrl: AlertController, private fire: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+
     }
 
     ionViewDidLoad() {
