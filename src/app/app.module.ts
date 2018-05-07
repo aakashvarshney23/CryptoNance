@@ -7,6 +7,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {FormsModule} from '@angular/forms';
+import {AngularFireDatabaseModule} from "angularfire2/database";
 
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
@@ -59,7 +60,8 @@ const firebaseAuth = {
         IonicModule.forRoot(MyApp), //use instead of browser module
         AngularFireModule.initializeApp(firebaseAuth),
         AngularFirestoreModule.enablePersistence(),
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        AngularFireDatabaseModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

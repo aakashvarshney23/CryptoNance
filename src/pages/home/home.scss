@@ -1,10 +1,25 @@
-page-home {
- #topButtons {
-   dsiplay: flex;
-   flex-direction: row;
- }
-  topButoons button {
-    flex: 1;
-
-  }
+body {
+  background-color:white;
 }
+
+h1 {
+  color: white;
+  text-align: center;
+  line-height: 2em;
+  font-size: 32px;
+}
+#main {
+  position: relative;
+}
+p{
+  line-height: 5em;
+}
+div {
+  line-height: 3em;
+  text-align: center;
+}
+body {
+  background-image: url("paper.gif");
+  background-color: blueviolet;
+}
+

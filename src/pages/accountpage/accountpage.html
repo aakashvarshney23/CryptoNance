@@ -1,7 +1,84 @@
-<ion-header>
 
-    <ion-navbar>
-        <ion-title>Account Page for {{email}} </ion-title>
-    </ion-navbar>
+<!--<ion-card>-->
+<!--&lt;!&ndash;<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;&ndash;&gt;-->
+<!--<strong> ID: {{wallet.id}} </strong>-->
+    <!--&lt;!&ndash;bitcoin amount: {{userwallet.bitcoinamount}} ,&ndash;&gt;-->
+    <!--&lt;!&ndash;ethereum amount: {{userwallet.ethereumamount}},&ndash;&gt;-->
+    <!--&lt;!&ndash;litecoin amount: {{userwallet.litecoinamount}},&ndash;&gt;-->
+    <!--&lt;!&ndash;ripple amount: {{userwallet.ripplecurrencyamount}},&ndash;&gt;-->
+    <!--&lt;!&ndash;transaction amount: {{userwallet.transaction}}&lt;!&ndash; use wallet.id to see the actual id of the document &ndash;&gt;&ndash;&gt;-->
+<!--</ion-card>-->
+<ion-content padding>
 
-</ion-header>
+<div *ngIf= "wallets?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->
+
+    <ul *ngFor="let wallet of wallets" class="collection"> <!-- run the loop -->
+
+    <div *ngIf = "wallet.id == userId; else noItems" >
+        <ion-card>
+        <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->
+        <ul>
+            <strong> ID : {{wallet.id}} </strong>
+        </ul>
+           <ul>Bitcoin Currency Amount : {{wallet.bitcoinamount}}</ul> <!-- use items.id to see the actual id of the document -->
+            <ul>Ethereum Currency Amount : {{wallet.ethereumamount}}</ul>
+            <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>
+            <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>
+        </ion-card>
+    </div>
+
+    </ul>
+
+</div>
+
+<ng-template #noWallets> <!-- run the else statement -->
+<hr>
+<h5> There are no items to list </h5>
+</ng-template>
+
+
+
+    <ion-card>
+        <ion-item>
+            <ion-label floating>Bitcoin Amount Edit</ion-label>
+            <ion-input type="number" #bitcoin></ion-input>
+        </ion-item>
+
+        <div>
+            <button block ion-button (click)="updateBitcoinField()">Update</button>
+        </div>
+
+        <ion-item>
+            <ion-label floating>Ethereum Amount Edit</ion-label>
+            <ion-input type="number" #ethereum></ion-input>
+        </ion-item>
+
+        <div>
+            <button block ion-button (click)="updateEthereumField()">Update</button>
+        </div>
+
+        <ion-item>
+            <ion-label floating>Litecoin Amount Edit</ion-label>
+            <ion-input type="number" #litecoin></ion-input>
+        </ion-item>
+
+        <div>
+            <button block ion-button (click)="updateLitecoinField()">Update</button>
+        </div>
+
+        <ion-item>
+            <ion-label floating>Ripple Amount Edit</ion-label>
+            <ion-input type="number" #ripple></ion-input>
+        </ion-item>
+
+        <div>
+            <button block ion-button (click)="updateRippleField()">Update</button>
+        </div>
+
+        <!--<div>-->
+            <!--<button block ion-button (click)="updateFields()">Update</button>-->
+        <!--</div>-->
+    </ion-card>
+
+<ion-content>
+
