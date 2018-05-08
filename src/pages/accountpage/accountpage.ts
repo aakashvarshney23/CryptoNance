@@ -97,8 +97,9 @@ export class AccountPage implements OnInit{
         });
 
         this.walletService.getWallets().subscribe(wallets =>{
-           this.wallets = wallets;
-           console.log("observable wallets", wallets);
+            this.wallets = wallets;
+            console.log("observable wallets", wallets);
+            console.log("wallet.id", wallets[1].id);
         });
     }
 

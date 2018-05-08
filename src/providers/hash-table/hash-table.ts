@@ -40,6 +40,7 @@ export class HashTableProvider {
     walletsCollection: AngularFirestoreCollection<Wallet>; //type: item
     //wallets: FirebaseListObservable<Wallet[]> = null;//FirebaseList
     wallets: Observable<Wallet[]>;
+    wallets2: Observable<Wallet[]>;
 
     walletDoc : AngularFirestoreDocument <Wallet>;
 
@@ -73,8 +74,8 @@ export class HashTableProvider {
             });
         });
 
-         // this.walletsCollection = this.afs.collection('account info'); //ref()
-         // this.wallets = this.walletsCollection.valueChanges();
+         this.walletsCollection = this.afs.collection('account info'); //ref()
+         // this.wallets2 = this.walletsCollection.valueChanges();
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

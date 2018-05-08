@@ -25,7 +25,7 @@ export class RegisterPage implements OnInit{
 
 
     wallet:Wallet = { //filled in by form in home.html
-        id : '',
+    id : '',
     totalamount : 0,
     bitcoinamount : 0, //? - optional
     ethereumamount : 0,
@@ -41,7 +41,6 @@ export class RegisterPage implements OnInit{
                 private fire: AngularFireAuth,
                 public navCtrl: NavController,
                 public navParams: NavParams){
-
 
     }
 

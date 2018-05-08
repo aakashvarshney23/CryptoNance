@@ -16,5 +16,25 @@
         </ion-card-content>
     </ion-card>
 
+<ion-card>
+    <div padding>
+        <ion-item>
+            <ion-label floating>Sell Amount</ion-label>
+            <ion-input type="number" #sellamount></ion-input>
+        </ion-item>
+        <button block ion-button (click)="sell()">Sell</button>
+
+    </div>
+
+    <div padding>
+        <ion-item>
+            <ion-label floating>Buy Amount</ion-label>
+            <ion-input type="number" #buyamount></ion-input>
+        </ion-item>
+        <button block ion-button (click)="buy()">Buy</button>
+    </div>
+
+</ion-card>
+
 </body>
 </html>
