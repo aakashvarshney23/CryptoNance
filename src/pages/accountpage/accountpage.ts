@@ -36,8 +36,6 @@ export class AccountPage implements OnInit{
     @ViewChild('ripple') ripple;
     @ViewChild('total') total;
 
-    num : number;
-
     //bitcoin : any;
 
     walletDoc : AngularFirestoreDocument <Wallet>;
@@ -72,7 +70,6 @@ export class AccountPage implements OnInit{
 
         console.log('logged in user id', this.userId);
 
-        this.num = 50000;
         //this.wallets = db.list('account info');
     }
 

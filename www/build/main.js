@@ -110,7 +110,6 @@ var AccountPage = /** @class */ (function () {
         this.email = fire.auth.currentUser.email;
         this.userId = this.fire.auth.currentUser.uid;
         console.log('logged in user id', this.userId);
-        this.num = 50000;
         //this.wallets = db.list('account info');
     }
     AccountPage.prototype.ngOnInit = function () {
@@ -295,6 +294,11 @@ var BitcoinPage = /** @class */ (function () {
         this.navParams = navParams;
         this.walletService = walletService;
         this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
         this.transactionArray = [];
         this.userId = this.fire.auth.currentUser.uid;
         this.walletService.getWallets().subscribe(function (wallet) {
@@ -309,10 +313,10 @@ var BitcoinPage = /** @class */ (function () {
                 }
                 if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
                     _this.wallet2 = wallet_1;
-                    // console.log('WALLET2 ID: ', this.wallet.id);
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
                 }
             }
-            //this.transactionArray = this.wallet.transaction;
+            _this.transactionArray = _this.wallet.transaction;
             //this.transaction = this.wallet.transaction;
             _this.bitcoinamount = _this.wallet.bitcoinamount;
             _this.totalamount = _this.wallet.totalamount;
@@ -326,50 +330,80 @@ var BitcoinPage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
     };
     BitcoinPage.prototype.sell = function () {
-        console.log(this.transactionArray);
-        this.transactionArray.push(1234);
-        this.afs.collection("USER WALLETS").doc(this.userId).update({
-            bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
-            totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
-        })
-            .then(function () {
-            console.log("Sell Amount logged!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
-        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-            bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
-            totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
-        })
-            .then(function () {
-            console.log("Sell Amount logged!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
+        if ((+this.sellCoins.value * bitcoin_val) > this.bitcoinamount || (+this.sellCoins.value * bitcoin_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.sellCoins.value * bitcoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
     };
     BitcoinPage.prototype.buy = function () {
-        this.afs.collection("USER WALLETS").doc(this.userId).update({
-            totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
-            bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
-        })
-            .then(function () {
-            console.log("Sell Amount logged!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
-        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-            totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
-            bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
-        })
-            .then(function () {
-            console.log("Sell Amount logged!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
+        if ((+this.buyCoins.value * bitcoin_val) > this.totalamount || (+this.buyCoins.value * bitcoin_val) > this.bitcoinamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * bitcoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    BitcoinPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    BitcoinPage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
@@ -762,8 +796,6 @@ var RegisterPage = /** @class */ (function () {
             ethereumamount: 0,
             litecoinamount: 0,
             ripplecurrencyamount: 0,
-            //transaction : 0;
-            transaction: this.transaction_array
         };
         this.transactionArray = [];
         //this.userId = fire.auth.currentUser.uid;
@@ -812,10 +844,14 @@ var RegisterPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-register',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        New User -> Register\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="registerUser()">Register</button>\n\n\n\n    </div>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]])
     ], RegisterPage);
     return RegisterPage;
-    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=register.js.map
@@ -1380,7 +1416,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var HashTableProvider = /** @class */ (function () {
-    //itemDoc: AngularFirestoreDocument<Wallet>; //type: item
     function HashTableProvider(afs, afAuth) {
         //private db: AngularFireDatabase) {
         // this.afAuth.authState.subscribe(user => {
@@ -1402,7 +1437,7 @@ var HashTableProvider = /** @class */ (function () {
                 return data;
             });
         });
-        this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
+        //this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
         // this.wallets2 = this.walletsCollection.valueChanges();
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // this.walletDoc = afs.doc<Wallet>(`account info/${this.userId}`);
@@ -1418,6 +1453,16 @@ var HashTableProvider = /** @class */ (function () {
         //  this.userwallet.subscribe(res=>{
         //      console.log("user's document:", res);
         //  });
+        this.transCollection = this.afs.collection('transaction history'); //ref()
+        this.transactions = this.transCollection.snapshotChanges().map(function (changes) {
+            //use snapshot changes and map the id
+            //items is the collection
+            return changes.map(function (a) {
+                var data = a.payload.doc.data(); //Wallet comes from the models folder
+                data.id = a.payload.doc.id; //how you get the doc id
+                return data;
+            });
+        });
     }
     // setUID() {
     //     this.afAuth.authState.subscribe(user => {
@@ -1447,6 +1492,12 @@ var HashTableProvider = /** @class */ (function () {
     };
     HashTableProvider.prototype.returnid = function () {
         return this.userId;
+    };
+    HashTableProvider.prototype.getTransactions = function () {
+        return this.transactions;
+    };
+    HashTableProvider.prototype.addNewTransaction = function (trans) {
+        this.transCollection.add(trans);
     };
     HashTableProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),

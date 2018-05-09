@@ -6,6 +6,8 @@ import {HashTableProvider} from '../../../providers/hash-table/hash-table';
 import {CurrencyPage} from "../currencypage";
 import {AngularFirestore} from "angularfire2/firestore";
 import {Wallet} from "../../../app/models/Wallet";
+import {Transaction} from "../../../app/models/Transaction";
+
 /**
  * Generated class for the BitcoinPage page.
  *
@@ -25,13 +27,18 @@ export class BitcoinPage { //sell key = 1;
     @ViewChild('sellamount') sellCoins; //in terms of coin
     @ViewChild('buyamount') buyCoins; //in terms of coin
 
+    trans:Transaction = {
+        id : '',
+        TransId: 0,
+        Amount: 0
+    }
+
     wallets: Wallet[];
     wallet: Wallet;
     wallet2: Wallet;
 
     userId : string;
     buykey : number;
-
 
     bitcoinamount : number;
     totalamount : number; //seller
@@ -40,7 +47,6 @@ export class BitcoinPage { //sell key = 1;
     transaction: number;
     trans_no: number;
     transactionArray: Array<number> = [];
-
 
     constructor(private alertCtrl: AlertController,
                 private fire: AngularFireAuth,
@@ -64,7 +70,7 @@ export class BitcoinPage { //sell key = 1;
 
                 if (wallet.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
                     this.wallet2 = wallet;
-                    // console.log('WALLET2 ID: ', this.wallet.id);
+                    console.log('WALLET2 ID: ', this.wallet2.id);
                 }
             }
 
@@ -87,62 +93,90 @@ export class BitcoinPage { //sell key = 1;
     }
 
     sell(){
-        console.log(this.transactionArray);
+        if((+this.sellCoins.value * bitcoin_val) > this.bitcoinamount || (+this.sellCoins.value * bitcoin_val) > this.totalamount2){
+            this.alert("Invalid Value!");
+        }
+        else {
+            let T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            let A = -Math.abs(+this.sellCoins.value * bitcoin_val);
+            this.addTrans(T, A);
 
-        this.transactionArray.push(Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000);
+            this.transactionArray.push(T);
 
-        this.afs.collection("USER WALLETS").doc(this.userId).update({
-            bitcoinamount : this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
-            totalamount : this.totalamount + +this.sellCoins.value * bitcoin_val,
-            transaction :  this.transactionArray
-        })
-            .then(function() {
-                console.log("Sell Amount logged!");
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
+                transaction: this.transactionArray
             })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function () {
+                    console.log("Sell Amount logged!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
 
-        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-            bitcoinamount : this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
-            totalamount : this.totalamount2 - +this.sellCoins.value * bitcoin_val
-        })
-            .then(function() {
-                console.log("Sell Amount logged!");
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
             })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function () {
+                    console.log("Sell Amount logged!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
+        }
 
     }
 
     buy(){
+        if((+this.buyCoins.value * bitcoin_val) > this.totalamount || (+this.buyCoins.value * bitcoin_val) > this.bitcoinamount2){
+          this.alert("Invalid Value!");
+        }
+        else {
+            let T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            let A = -Math.abs(+this.buyCoins.value * bitcoin_val);
+            this.addTrans(T, A);
 
-        this.transactionArray.push(Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000);
+            this.transactionArray.push(T);
 
-        this.afs.collection("USER WALLETS").doc(this.userId).update({
-            totalamount : this.totalamount - +this.buyCoins.value * bitcoin_val,
-            bitcoinamount : this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
-            transaction :  this.transactionArray
-        })
-            .then(function() {
-                console.log("Sell Amount logged!");
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
+                transaction: this.transactionArray
             })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function () {
+                    console.log("Sell Amount logged!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
 
-        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-            totalamount : this.totalamount2 + +this.buyCoins.value * bitcoin_val,
-            bitcoinamount : this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
-        })
-            .then(function() {
-                console.log("Sell Amount logged!");
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
             })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function () {
+                    console.log("Sell Amount logged!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
+        }
+    }
 
+    alert(message: string) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    }
+
+    addTrans(transid: number, amt: number){
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
     }
 }
 

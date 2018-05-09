@@ -27,6 +27,7 @@ import { FirebaseObjectObservable} from "angularfire2/database-deprecated";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
 import { switchMap } from 'rxjs/operators';
 import { Wallet } from '../../app/models/Wallet'; //export allows use in other files
+import {Transaction} from "../../app/models/Transaction";
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import * as firebase from 'firebase/app';
@@ -48,6 +49,10 @@ export class HashTableProvider {
 
     userId: string;
     //itemDoc: AngularFirestoreDocument<Wallet>; //type: item
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~
+    transCollection: AngularFirestoreCollection<Transaction>; //type: item
+    transactions: Observable<Transaction[]>;
 
      constructor(public afs: AngularFirestore,
                  public afAuth: AngularFireAuth){
@@ -74,7 +79,7 @@ export class HashTableProvider {
             });
         });
 
-         this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
+         //this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
          // this.wallets2 = this.walletsCollection.valueChanges();
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,6 +98,17 @@ export class HashTableProvider {
         //      console.log("user's document:", res);
         //  });
 
+         this.transCollection = this.afs.collection('transaction history'); //ref()
+
+         this.transactions = this.transCollection.snapshotChanges().map(changes => {
+             //use snapshot changes and map the id
+             //items is the collection
+             return changes.map(a => {
+                 const data = a.payload.doc.data() as Transaction; //Wallet comes from the models folder
+                 data.id = a.payload.doc.id; //how you get the doc id
+                 return data;
+             });
+         });
      }
 
     // setUID() {
@@ -128,6 +144,14 @@ export class HashTableProvider {
 
     returnid() { //returns id of the user
         return this.userId;
+    }
+
+    getTransactions(){
+         return this.transactions;
+    }
+
+    addNewTransaction(trans: Transaction) {
+        this.transCollection.add(trans);
     }
 
     // getWalletDoc() : AngularFirestoreDocument<Wallet> {
