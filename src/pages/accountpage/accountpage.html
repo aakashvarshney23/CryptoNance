@@ -39,11 +39,11 @@
 </ng-template>
 
 
-
     <ion-card>
         <ion-item>
             <ion-label floating>Bitcoin Amount Edit</ion-label>
             <ion-input type="number" #bitcoin></ion-input>
+            <!--<ion-input type="number" min="1" [value]="bitcoin" [(ngModel)]="bitcoin"></ion-input>-->
         </ion-item>
 
         <div>
@@ -77,6 +77,14 @@
             <button block ion-button (click)="updateRippleField()">Update</button>
         </div>
 
+        <ion-item>
+            <ion-label floating>Total Amount Edit</ion-label>
+            <ion-input type="number" #total></ion-input>
+        </ion-item>
+
+        <div>
+            <button block ion-button (click)="updateAmountField()">Update</button>
+        </div>
         <!--<div>-->
             <!--<button block ion-button (click)="updateFields()">Update</button>-->
         <!--</div>-->

@@ -56,13 +56,13 @@ export class HashTableProvider {
         //     if (user) this.userId = user.uid
         // })
 
-        this.userId = this.afAuth.auth.currentUser.uid;
-
-        console.log('injector uid', this.userId);
+        // this.userId = this.afAuth.auth.currentUser.uid;
+        //
+        // console.log('injector uid', this.userId);
 
         //this.walletsCollection = this.afs.collection('account info', ref => ref.orderBy('id', 'asc'));//.valueChanges(); // returns the collection as a observable
 
-        this.walletsCollection = this.afs.collection('account info'); //ref()
+        this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
 
         this.wallets = this.walletsCollection.snapshotChanges().map(changes => {
             //use snapshot changes and map the id
@@ -74,24 +74,24 @@ export class HashTableProvider {
             });
         });
 
-         this.walletsCollection = this.afs.collection('account info'); //ref()
+         this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
          // this.wallets2 = this.walletsCollection.valueChanges();
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        //this.walletDoc = afs.doc<Wallet>(`account info/${this.userId}`);
-
-         this.walletDoc = this.getWalletDoc();
-
-         // this.userwallet = this.walletDoc.valueChanges();
-
-          this.userwallet = this.walletDoc.snapshotChanges().map(changes => {
-            return changes.payload.data() as Wallet;
-        });
-
-         this.userwallet.subscribe(res=>{
-             console.log("user's document:", res);
-         });
+        // this.walletDoc = afs.doc<Wallet>(`account info/${this.userId}`);
+        //
+        //  this.walletDoc = this.getWalletDoc();
+        //
+        //  // this.userwallet = this.walletDoc.valueChanges();
+        //
+        //   this.userwallet = this.walletDoc.snapshotChanges().map(changes => {
+        //     return changes.payload.data() as Wallet;
+        // });
+        //
+        //  this.userwallet.subscribe(res=>{
+        //      console.log("user's document:", res);
+        //  });
 
      }
 
@@ -110,17 +110,19 @@ export class HashTableProvider {
     }
 
     addNewWallet(wallet: Wallet, uid: string) {
-        this.afs.collection("account info").doc(uid).set({wallet})
-            .then(function() {
-                console.log("Document successfully written!");
-            })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+        // this.afs.collection("account info").doc(uid).set({wallet})
+        //     .then(function() {
+        //
+        //         console.log("Document successfully written!");
+        //     })
+        //     .catch(function(error) {
+        //         console.error("Error writing document: ", error);
+        //     });
+        this.walletsCollection.doc(uid).set(wallet);
     }
 
     deleteItem(wallet: Wallet) { //takes in wallet, type of Wallet
-        this.walletDoc = this.afs.doc(`account info/${wallet.id}`); //picks a specific item
+        this.walletDoc = this.afs.doc(`USER WALLETS/${wallet.id}`); //picks a specific item
         this.walletDoc.delete(); //once you identified the specific item, it should delete
     }
 
@@ -128,12 +130,12 @@ export class HashTableProvider {
         return this.userId;
     }
 
-    getWalletDoc() : AngularFirestoreDocument<Wallet> {
-
-        this.walletDoc = this.afs.collection('account info').doc(this.userId);
-         //this.itemDoc = this.afs.doc(`account info/${this.userId}`);
-         return this.walletDoc;
-    }
+    // getWalletDoc() : AngularFirestoreDocument<Wallet> {
+    //
+    //     this.walletDoc = this.afs.collection("USER WALLETS").doc(this.userId);
+    //      //this.itemDoc = this.afs.doc(`account info/${this.userId}`);
+    //      return this.walletDoc;
+    // }
 
     // getWalletsList() : Observable <Wallet[]>{
     //     if (!this.userId) return;

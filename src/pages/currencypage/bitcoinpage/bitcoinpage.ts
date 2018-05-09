@@ -37,6 +37,10 @@ export class BitcoinPage { //sell key = 1;
     totalamount : number; //seller
     bitcoinamount2 : number;
     totalamount2: number; //master
+    transaction: number;
+    trans_no: number;
+    transactionArray: Array<number> = [];
+
 
     constructor(private alertCtrl: AlertController,
                 private fire: AngularFireAuth,
@@ -51,35 +55,31 @@ export class BitcoinPage { //sell key = 1;
             this.wallets = wallet;
             console.log("Wallets from sell", this.wallets);
             for(let wallet of this.wallets){
-                //if(this.wallets.length > 0 ) {
+
                 if (wallet.id == this.userId) {
                     this.wallet = wallet;
                     console.log('WALLET ID: ',this.wallet.id);
+                    console.log("array", wallet);
                 }
 
-                if (wallet.id == 'em9dpOy3k0YAIK3zXTezlyvmtUu1') {
+                if (wallet.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
                     this.wallet2 = wallet;
-                    console.log('WALLET2 ID: ',this.wallet.id);
+                    // console.log('WALLET2 ID: ', this.wallet.id);
                 }
-
-                //}
             }
 
+            //this.transactionArray = this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
             this.bitcoinamount = this.wallet.bitcoinamount;
             this.totalamount = this.wallet.totalamount;
             this.bitcoinamount2 = this.wallet2.bitcoinamount;
             this.totalamount2 = this.wallet2.totalamount;
 
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+
         });
 
-    }
-
-    alert(message: string) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
     }
 
     goback_currencypage(){
@@ -87,10 +87,15 @@ export class BitcoinPage { //sell key = 1;
     }
 
     sell(){
+        console.log(this.transactionArray);
 
-        this.afs.collection("account info").doc(this.userId).update({
-            bitcoinamount : this.bitcoinamount - this.sellCoins.value * bitcoin_val,
-            totalamount : this.totalamount + this.sellCoins.value * bitcoin_val
+        this.transactionArray.push(1234);
+
+        this.afs.collection("USER WALLETS").doc(this.userId).update({
+            bitcoinamount : this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
+            totalamount : this.totalamount + +this.sellCoins.value * bitcoin_val,
+            //transaction :  this.transactionArray
+            //transaction : this.transaction
         })
             .then(function() {
                 console.log("Sell Amount logged!");
@@ -99,9 +104,9 @@ export class BitcoinPage { //sell key = 1;
                 console.error("Error writing document: ", error);
             });
 
-        this.afs.collection("account info").doc('em9dpOy3k0YAIK3zXTezlyvmtUu1').update({
-            bitcoinamount : this.bitcoinamount2 + this.sellCoins.value * bitcoin_val,
-            totalamount : this.totalamount2 - this.sellCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+            bitcoinamount : this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
+            totalamount : this.totalamount2 - +this.sellCoins.value * bitcoin_val
         })
             .then(function() {
                 console.log("Sell Amount logged!");
@@ -110,56 +115,14 @@ export class BitcoinPage { //sell key = 1;
                 console.error("Error writing document: ", error);
             });
 
-    }
-
-    prompt() {
-        let confirm = this.alertCtrl.create({
-            title: 'Use this lightsaber?',
-            message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
-            buttons: [
-                {
-                    text: 'Bitcoin',
-                    handler: () => {
-                        this.buykey = 1;
-                    }
-                },
-                {
-                    text: 'Ethereum',
-                    handler: () => {
-                        this.buykey = 2;
-                    }
-                },
-                {
-                    text: 'Litecoin',
-                    handler: () => {
-                        this.buykey = 3;
-                    }
-                },
-                {
-                    text: 'Ripple',
-                    handler: () => {
-                        this.buykey = 4;
-                    }
-                }
-            ]
-
-        });
-        confirm.present();
     }
 
     buy(){
-        //get input from the user on which currency they want to buy
-        //get input from the user how much they want to buy
-        //search for seller from list of wallets who is selling with the given amount
-        //deduct sellamount from certain field of seller based on sell key
-        //add buyamount to certain field of user
-        //generate transaction id each for user and buyer in hashtable
-        //this.prompt();
-
-
-        this.afs.collection("account info").doc(this.userId).update({
-            totalamount : this.totalamount - this.buyCoins.value * bitcoin_val,
-            bitcoinamount : this.bitcoinamount + this.buyCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc(this.userId).update({
+            totalamount : this.totalamount - +this.buyCoins.value * bitcoin_val,
+            bitcoinamount : this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
+            //transaction :  this.transactionArray.push(5678)
+            //transaction : this.transaction
         })
             .then(function() {
                 console.log("Sell Amount logged!");
@@ -168,9 +131,9 @@ export class BitcoinPage { //sell key = 1;
                 console.error("Error writing document: ", error);
             });
 
-        this.afs.collection("account info").doc('em9dpOy3k0YAIK3zXTezlyvmtUu1').update({
-            totalamount : this.totalamount2 + this.buyCoins.value * bitcoin_val,
-            bitcoinamount : this.bitcoinamount2 - this.buyCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+            totalamount : this.totalamount2 + +this.buyCoins.value * bitcoin_val,
+            bitcoinamount : this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
         })
             .then(function() {
                 console.log("Sell Amount logged!");

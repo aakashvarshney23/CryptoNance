@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/observable';
 
 import {HashTableProvider} from "../../providers/hash-table/hash-table";
 import {Wallet} from "../../app/models/Wallet";
+import {AngularFirestore} from "angularfire2/firestore";
 
 /**
  * Generated class for the RegisterPage page.
@@ -23,6 +24,7 @@ export class RegisterPage implements OnInit{
     @ViewChild('username') user;
     @ViewChild('password') password;
 
+    transaction_array : Array<number> = [];
 
     wallet:Wallet = { //filled in by form in home.html
     id : '',
@@ -31,17 +33,21 @@ export class RegisterPage implements OnInit{
     ethereumamount : 0,
     litecoinamount : 0,
     ripplecurrencyamount : 0,
-    transaction : ''
+    //transaction : 0;
+    transaction : this.transaction_array
     }
 
     userId:string;
+    transactionArray: Array<number> = [];
 
     constructor(private walletService: HashTableProvider,
                 private alertCtrl: AlertController,
                 private fire: AngularFireAuth,
                 public navCtrl: NavController,
-                public navParams: NavParams){
+                public navParams: NavParams,
+                public afs: AngularFirestore){
 
+        //this.userId = fire.auth.currentUser.uid;
     }
 
     ionViewDidLoad() {
@@ -70,8 +76,6 @@ export class RegisterPage implements OnInit{
                 this.userId = this.fire.auth.currentUser.uid;
                 this.onReg(this.userId);
 
-                //console.log('uid',this.fire.auth.currentUser.uid);
-
                 console.log("new user id", this.userId);
             })
             .catch(error => {
@@ -82,8 +86,8 @@ export class RegisterPage implements OnInit{
     }
 
     onReg(uid: string){
-        this.wallet.id = this.userId;
-        this.walletService.addNewWallet(this.wallet, this.userId);//, this.userId); //pass in item which is submitted through the form
+        this.wallet.id = uid;
+        this.walletService.addNewWallet(this.wallet, uid);//, this.userId); //pass in item which is submitted through the form
     }
 
 }

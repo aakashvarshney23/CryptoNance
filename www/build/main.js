@@ -7,9 +7,9 @@ webpackJsonp([11],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hashtable_hashtable__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hashtable_hashtable__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -51,7 +51,7 @@ var HomePage = /** @class */ (function () {
     ], HomePage.prototype, "password", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/'<ion-card>\n\n    <html>\n\n    <body>\n\n    <h1> <b>CryptoNance </b></h1>\n\n    <img src="https://cdn.wccftech.com/wp-content/uploads/2017/12/Bulgarian-Bitcoin-Horde-01-Header-2060x1133.jpg" alt="Sample" style="width:400px;height:400px;">\n\n\n\n    <p style="text-align:center;" > A Cryptocurreny trading website</p>\n\n\n\n\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="signIn()">Sign In</button>\n\n        <button ion-button color="default" (click)="register()">Register?</button>\n\n    </div>\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="hash_view()">Database Testing</button>\n\n    </div>\n\n\n\n\n\n    </body>\n\n    </html>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/'<ion-card>\n\n    <html>\n\n    <body>\n\n    <h1> <b>CryptoNance </b></h1>\n\n    <img src="https://cdn.wccftech.com/wp-content/uploads/2017/12/Bulgarian-Bitcoin-Horde-01-Header-2060x1133.jpg" alt="Sample" style="width:358px;height:270px;">\n\n\n\n    <p style="text-align:center;" > A Cryptocurreny trading website</p>\n\n\n\n\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="signIn()">Sign In</button>\n\n        <button ion-button color="default" (click)="register()">Register?</button>\n\n    </div>\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="hash_view()">Database Testing</button>\n\n    </div>\n\n\n\n\n\n    </body>\n\n    </html>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]])
     ], HomePage);
@@ -72,7 +72,7 @@ var HomePage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__ = __webpack_require__(73);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,10 +94,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var AccountPage = /** @class */ (function () {
-    // linkRef: AngularFirestoreDocument<any>;
-    // link: Observable<any>;
-    // path: string;
-    //wallets: AngularFireList<any>;
     function AccountPage(fire, navCtrl, navParams, walletService, afs, alertCtrl) {
         // private db: AngularFireDatabase) {
         this.fire = fire;
@@ -106,69 +102,50 @@ var AccountPage = /** @class */ (function () {
         this.walletService = walletService;
         this.afs = afs;
         this.alertCtrl = alertCtrl;
+        // linkRef: AngularFirestoreDocument<any>;
+        // link: Observable<any>;
+        // path: string;
+        //wallets: AngularFireList<any>;
+        this.transactionArray = [];
         this.email = fire.auth.currentUser.email;
         this.userId = this.fire.auth.currentUser.uid;
         console.log('logged in user id', this.userId);
+        this.num = 50000;
         //this.wallets = db.list('account info');
     }
     AccountPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.walletDoc = this.walletService.getWalletDoc();
-        this.walletDoc.ref.get().then(function (doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-            }
-            else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
-        // // 1. make a reference
-        // this.linkRef = this.afs.collection('links').doc(this.userId);
+        // this.walletDoc = this.walletService.getWalletDoc();
         //
-        // // 2. get the Observable
-        // this.link = this.linkRef.valueChanges();
-        this.walletService.getWallet().subscribe(function (wallet) {
-            _this.wallet = wallet; // items coming from the service are being set to the items property
-            console.log("wallet", _this.wallet);
-            console.log("wallet id:", _this.wallet.id);
-        });
+        // this.walletDoc.ref.get().then(function(doc) {
+        //     if (doc.exists) {
+        //         console.log("Document data:", doc.data());
+        //
+        //     } else {
+        //         // doc.data() will be undefined in this case
+        //         console.log("No such document!");
+        //     }
+        // }).catch(function(error) {
+        //     console.log("Error getting document:", error);
+        // });
+        var _this = this;
+        // this.walletService.getWallet().subscribe(wallet => {
+        //     this.wallet = wallet; // items coming from the service are being set to the items property
+        //     console.log("wallet", this.wallet);
+        //     console.log("wallet id:", this.wallet.id);
+        // });
+        //
         this.walletService.getWallets().subscribe(function (wallets) {
             _this.wallets = wallets;
             console.log("observable wallets", wallets);
             console.log("wallet.id", wallets[1].id);
         });
     };
-    // prompt() {
-    //     let confirm = this.alertCtrl.create({
-    //         title: 'Use this lightsaber?',
-    //         message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
-    //         buttons: [
-    //             {
-    //                 text: 'Disagree',
-    //                 handler: () => {
-    //                     console.log('Disagree clicked');
-    //                 }
-    //             },
-    //             {
-    //                 text: 'Agree',
-    //                 handler: () => {
-    //                     console.log('Agree clicked');
-    //                 }
-    //             }
-    //         ]
-    //
-    //     });
-    //     confirm.present();
-    // }
     AccountPage.prototype.updateFields = function () {
-        this.afs.collection("account info").doc(this.userId).update({
-            bitcoinamount: this.bitcoin.value,
-            ethereumamount: this.ethereum.value,
-            litecoinamount: this.litecoin.value,
-            ripplecurrencyamount: this.ripple.value
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+            bitcoinamount: +this.bitcoin.value,
+            ethereumamount: +this.ethereum.value,
+            litecoinamount: +this.litecoin.value,
+            ripplecurrencyamount: +this.ripple.value
         })
             .then(function () {
             console.log("Bitcoin amount successfully updated");
@@ -178,8 +155,8 @@ var AccountPage = /** @class */ (function () {
         });
     };
     AccountPage.prototype.updateBitcoinField = function () {
-        this.afs.collection("account info").doc(this.userId).update({
-            bitcoinamount: this.bitcoin.value,
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+            bitcoinamount: +this.bitcoin.value,
         })
             .then(function () {
             console.log("Bitcoin amount successfully updated");
@@ -189,9 +166,9 @@ var AccountPage = /** @class */ (function () {
         });
     };
     AccountPage.prototype.updateEthereumField = function () {
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
-            ethereumamount: this.ethereum.value,
+            ethereumamount: +this.ethereum.value,
         })
             .then(function () {
             console.log("Ethereum amount successfully updated");
@@ -201,10 +178,10 @@ var AccountPage = /** @class */ (function () {
         });
     };
     AccountPage.prototype.updateLitecoinField = function () {
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
             //ethereumamount: this.ethereum.value,
-            litecoinamount: this.litecoin.value,
+            litecoinamount: +this.litecoin.value,
         })
             .then(function () {
             console.log("Litecoin amount successfully updated");
@@ -214,14 +191,29 @@ var AccountPage = /** @class */ (function () {
         });
     };
     AccountPage.prototype.updateRippleField = function () {
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
             // ethereumamount: this.ethereum.value,
             // litecoinamount: this.litecoin.value,
-            ripplecurrencyamount: this.ripple.value
+            ripplecurrencyamount: +this.ripple.value
         })
             .then(function () {
             console.log("Ripple amount successfully updated");
+        })
+            .catch(function (error) {
+            console.error("Error writing document: ", error);
+        });
+    };
+    AccountPage.prototype.updateAmountField = function () {
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+            // bitcoinamount: this.bitcoin.value,
+            // ethereumamount: this.ethereum.value,
+            // litecoinamount: this.litecoin.value,
+            //ripplecurrencyamount: this.ripple.value
+            totalamount: +this.total.value
+        })
+            .then(function () {
+            console.log("Total amount successfully updated");
         })
             .catch(function (error) {
             console.error("Error writing document: ", error);
@@ -243,18 +235,18 @@ var AccountPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('ripple'),
         __metadata("design:type", Object)
     ], AccountPage.prototype, "ripple", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('total'),
+        __metadata("design:type", Object)
+    ], AccountPage.prototype, "total", void 0);
     AccountPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-accountpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/'\n\n<!--<ion-card>-->\n\n<!--&lt;!&ndash;<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;&ndash;&gt;-->\n\n<!--<strong> ID: {{wallet.id}} </strong>-->\n\n    <!--&lt;!&ndash;bitcoin amount: {{userwallet.bitcoinamount}} ,&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ethereum amount: {{userwallet.ethereumamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;litecoin amount: {{userwallet.litecoinamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ripple amount: {{userwallet.ripplecurrencyamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;transaction amount: {{userwallet.transaction}}&lt;!&ndash; use wallet.id to see the actual id of the document &ndash;&gt;&ndash;&gt;-->\n\n<!--</ion-card>-->\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf= "wallets?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n    <ul *ngFor="let wallet of wallets" class="collection"> <!-- run the loop -->\n\n\n\n    <div *ngIf = "wallet.id == userId; else noItems" >\n\n        <ion-card>\n\n        <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n\n        <ul>\n\n            <strong> ID : {{wallet.id}} </strong>\n\n        </ul>\n\n           <ul>Bitcoin Currency Amount : {{wallet.bitcoinamount}}</ul> <!-- use items.id to see the actual id of the document -->\n\n            <ul>Ethereum Currency Amount : {{wallet.ethereumamount}}</ul>\n\n            <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>\n\n            <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>\n\n            <ul>TOTAL AMOUNT : {{wallet.totalamount}}</ul>\n\n        </ion-card>\n\n    </div>\n\n\n\n    </ul>\n\n\n\n</div>\n\n\n\n<ng-template #noWallets> <!-- run the else statement -->\n\n<hr>\n\n<h5> There are no items to list </h5>\n\n</ng-template>\n\n\n\n\n\n\n\n    <ion-card>\n\n        <ion-item>\n\n            <ion-label floating>Bitcoin Amount Edit</ion-label>\n\n            <ion-input type="number" #bitcoin></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateBitcoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ethereum Amount Edit</ion-label>\n\n            <ion-input type="number" #ethereum></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateEthereumField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Litecoin Amount Edit</ion-label>\n\n            <ion-input type="number" #litecoin></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateLitecoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ripple Amount Edit</ion-label>\n\n            <ion-input type="number" #ripple></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateRippleField()">Update</button>\n\n        </div>\n\n\n\n        <!--<div>-->\n\n            <!--<button block ion-button (click)="updateFields()">Update</button>-->\n\n        <!--</div>-->\n\n    </ion-card>\n\n\n\n<ion-content>\n\n\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/,
+            selector: 'page-accountpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/'\n\n<!--<ion-card>-->\n\n<!--&lt;!&ndash;<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;&ndash;&gt;-->\n\n<!--<strong> ID: {{wallet.id}} </strong>-->\n\n    <!--&lt;!&ndash;bitcoin amount: {{userwallet.bitcoinamount}} ,&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ethereum amount: {{userwallet.ethereumamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;litecoin amount: {{userwallet.litecoinamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ripple amount: {{userwallet.ripplecurrencyamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;transaction amount: {{userwallet.transaction}}&lt;!&ndash; use wallet.id to see the actual id of the document &ndash;&gt;&ndash;&gt;-->\n\n<!--</ion-card>-->\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf= "wallets?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n    <ul *ngFor="let wallet of wallets" class="collection"> <!-- run the loop -->\n\n\n\n    <div *ngIf = "wallet.id == userId; else noItems" >\n\n        <ion-card>\n\n        <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n\n        <ul>\n\n            <strong> ID : {{wallet.id}} </strong>\n\n        </ul>\n\n           <ul>Bitcoin Currency Amount : {{wallet.bitcoinamount}}</ul> <!-- use items.id to see the actual id of the document -->\n\n            <ul>Ethereum Currency Amount : {{wallet.ethereumamount}}</ul>\n\n            <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>\n\n            <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>\n\n            <ul>TOTAL AMOUNT : {{wallet.totalamount}}</ul>\n\n        </ion-card>\n\n    </div>\n\n\n\n    </ul>\n\n\n\n</div>\n\n\n\n<ng-template #noWallets> <!-- run the else statement -->\n\n<hr>\n\n<h5> There are no items to list </h5>\n\n</ng-template>\n\n\n\n\n\n    <ion-card>\n\n        <ion-item>\n\n            <ion-label floating>Bitcoin Amount Edit</ion-label>\n\n            <ion-input type="number" #bitcoin></ion-input>\n\n            <!--<ion-input type="number" min="1" [value]="bitcoin" [(ngModel)]="bitcoin"></ion-input>-->\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateBitcoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ethereum Amount Edit</ion-label>\n\n            <ion-input type="number" #ethereum></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateEthereumField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Litecoin Amount Edit</ion-label>\n\n            <ion-input type="number" #litecoin></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateLitecoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ripple Amount Edit</ion-label>\n\n            <ion-input type="number" #ripple></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateRippleField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Total Amount Edit</ion-label>\n\n            <ion-input type="number" #total></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateAmountField()">Update</button>\n\n        </div>\n\n        <!--<div>-->\n\n            <!--<button block ion-button (click)="updateFields()">Update</button>-->\n\n        <!--</div>-->\n\n    </ion-card>\n\n\n\n<ion-content>\n\n\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _f || Object])
     ], AccountPage);
     return AccountPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=accountpage.js.map
@@ -271,7 +263,7 @@ var AccountPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(73);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -303,43 +295,42 @@ var BitcoinPage = /** @class */ (function () {
         this.navParams = navParams;
         this.walletService = walletService;
         this.afs = afs;
+        this.transactionArray = [];
         this.userId = this.fire.auth.currentUser.uid;
         this.walletService.getWallets().subscribe(function (wallet) {
             _this.wallets = wallet;
             console.log("Wallets from sell", _this.wallets);
             for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
                 var wallet_1 = _a[_i];
-                //if(this.wallets.length > 0 ) {
                 if (wallet_1.id == _this.userId) {
                     _this.wallet = wallet_1;
                     console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
                 }
-                if (wallet_1.id == 'em9dpOy3k0YAIK3zXTezlyvmtUu1') {
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
                     _this.wallet2 = wallet_1;
-                    console.log('WALLET2 ID: ', _this.wallet.id);
+                    // console.log('WALLET2 ID: ', this.wallet.id);
                 }
-                //}
             }
+            //this.transactionArray = this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
             _this.bitcoinamount = _this.wallet.bitcoinamount;
             _this.totalamount = _this.wallet.totalamount;
             _this.bitcoinamount2 = _this.wallet2.bitcoinamount;
             _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
         });
     }
-    BitcoinPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
     BitcoinPage.prototype.goback_currencypage = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
     };
     BitcoinPage.prototype.sell = function () {
-        this.afs.collection("account info").doc(this.userId).update({
-            bitcoinamount: this.bitcoinamount - this.sellCoins.value * bitcoin_val,
-            totalamount: this.totalamount + this.sellCoins.value * bitcoin_val
+        console.log(this.transactionArray);
+        this.transactionArray.push(1234);
+        this.afs.collection("USER WALLETS").doc(this.userId).update({
+            bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
+            totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
         })
             .then(function () {
             console.log("Sell Amount logged!");
@@ -347,9 +338,9 @@ var BitcoinPage = /** @class */ (function () {
             .catch(function (error) {
             console.error("Error writing document: ", error);
         });
-        this.afs.collection("account info").doc('em9dpOy3k0YAIK3zXTezlyvmtUu1').update({
-            bitcoinamount: this.bitcoinamount2 + this.sellCoins.value * bitcoin_val,
-            totalamount: this.totalamount2 - this.sellCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+            bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
+            totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
         })
             .then(function () {
             console.log("Sell Amount logged!");
@@ -357,52 +348,11 @@ var BitcoinPage = /** @class */ (function () {
             .catch(function (error) {
             console.error("Error writing document: ", error);
         });
-    };
-    BitcoinPage.prototype.prompt = function () {
-        var _this = this;
-        var confirm = this.alertCtrl.create({
-            title: 'Use this lightsaber?',
-            message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
-            buttons: [
-                {
-                    text: 'Bitcoin',
-                    handler: function () {
-                        _this.buykey = 1;
-                    }
-                },
-                {
-                    text: 'Ethereum',
-                    handler: function () {
-                        _this.buykey = 2;
-                    }
-                },
-                {
-                    text: 'Litecoin',
-                    handler: function () {
-                        _this.buykey = 3;
-                    }
-                },
-                {
-                    text: 'Ripple',
-                    handler: function () {
-                        _this.buykey = 4;
-                    }
-                }
-            ]
-        });
-        confirm.present();
     };
     BitcoinPage.prototype.buy = function () {
-        //get input from the user on which currency they want to buy
-        //get input from the user how much they want to buy
-        //search for seller from list of wallets who is selling with the given amount
-        //deduct sellamount from certain field of seller based on sell key
-        //add buyamount to certain field of user
-        //generate transaction id each for user and buyer in hashtable
-        //this.prompt();
-        this.afs.collection("account info").doc(this.userId).update({
-            totalamount: this.totalamount - this.buyCoins.value * bitcoin_val,
-            bitcoinamount: this.bitcoinamount + this.buyCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc(this.userId).update({
+            totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
+            bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
         })
             .then(function () {
             console.log("Sell Amount logged!");
@@ -410,9 +360,9 @@ var BitcoinPage = /** @class */ (function () {
             .catch(function (error) {
             console.error("Error writing document: ", error);
         });
-        this.afs.collection("account info").doc('em9dpOy3k0YAIK3zXTezlyvmtUu1').update({
-            totalamount: this.totalamount2 + this.buyCoins.value * bitcoin_val,
-            bitcoinamount: this.bitcoinamount2 - this.buyCoins.value * bitcoin_val
+        this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+            totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
+            bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
         })
             .then(function () {
             console.log("Sell Amount logged!");
@@ -431,7 +381,7 @@ var BitcoinPage = /** @class */ (function () {
     ], BitcoinPage.prototype, "buyCoins", void 0);
     BitcoinPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-bitcoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Bitcoin Page!\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/,
+            selector: 'page-bitcoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Bitcoin Page!\n\n            Current Bitcoin Price: 9753\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _f || Object])
     ], BitcoinPage);
@@ -645,6 +595,237 @@ var RipplePage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(193);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var LoginPage = /** @class */ (function () {
+    function LoginPage(alertCtrl, fire, navCtrl, navParams) {
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoginPage');
+    };
+    LoginPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    LoginPage.prototype.signInUser = function () {
+        var _this = this;
+        this.fire.auth.signInWithEmailAndPassword(this.user.value, this.password.value)
+            .then(function (data) {
+            console.log('got data', _this.fire.auth.currentUser.displayName);
+            _this.alert('Success! You are logged in');
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
+        })
+            .catch(function (error) {
+            console.log('got an error', error);
+            _this.alert(error.message);
+        });
+        console.log('Would sign in with', this.user.value, this.password.value);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
+        __metadata("design:type", Object)
+    ], LoginPage.prototype, "user", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
+        __metadata("design:type", Object)
+    ], LoginPage.prototype, "password", void 0);
+    LoginPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        User Login\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="signInUser()">Sign In</button>\n\n    </div>\n\n\n\n\n\n</ion-card>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+    ], LoginPage);
+    return LoginPage;
+}());
+
+//# sourceMappingURL=login.js.map
+
+/***/ }),
+
+/***/ 193:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(187);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+/**
+ * Generated class for the TabsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var TabsPage = /** @class */ (function () {
+    function TabsPage() {
+        // constructor(public navCtrl: NavController, public navParams: NavParams) {
+        // }
+        // ionViewDidLoad() {
+        //   console.log('ionViewDidLoad TabsPage');
+        // }
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__["a" /* CurrencyPage */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__["a" /* AccountPage */];
+    }
+    TabsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/'<!--\n\n  Generated template for the TabsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<!-- <ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>tabs</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header> -->\n\n\n\n\n\n<ion-content padding>\n\n	<ion-tabs> \n\n    <ion-tab [root]="tab1Root" tabTitle = "Currencies" tabIcon = "star"> Currencies </ion-tab>\n\n    <ion-tab [root]="tab2Root" tabTitle = "Account" tabIcon = "book"> Account </ion-tab>\n\n    </ion-tabs>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/,
+        })
+    ], TabsPage);
+    return TabsPage;
+}());
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 194:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__ = __webpack_require__(73);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Generated class for the RegisterPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var RegisterPage = /** @class */ (function () {
+    function RegisterPage(walletService, alertCtrl, fire, navCtrl, navParams, afs) {
+        this.walletService = walletService;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.afs = afs;
+        this.transaction_array = [];
+        this.wallet = {
+            id: '',
+            totalamount: 0,
+            bitcoinamount: 0,
+            ethereumamount: 0,
+            litecoinamount: 0,
+            ripplecurrencyamount: 0,
+            //transaction : 0;
+            transaction: this.transaction_array
+        };
+        this.transactionArray = [];
+        //this.userId = fire.auth.currentUser.uid;
+    }
+    RegisterPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad RegisterPage');
+    };
+    RegisterPage.prototype.ngOnInit = function () {
+    };
+    RegisterPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    RegisterPage.prototype.registerUser = function () {
+        var _this = this;
+        this.fire.auth.createUserWithEmailAndPassword(this.user.value, this.password.value)
+            .then(function (data) {
+            console.log('got data', data);
+            _this.alert('Registered');
+            _this.userId = _this.fire.auth.currentUser.uid;
+            _this.onReg(_this.userId);
+            console.log("new user id", _this.userId);
+        })
+            .catch(function (error) {
+            console.log('got an error', error);
+            _this.alert(error.message);
+        });
+        console.log('Would register user with', this.user.value, this.password.value);
+    };
+    RegisterPage.prototype.onReg = function (uid) {
+        this.wallet.id = uid;
+        this.walletService.addNewWallet(this.wallet, uid); //, this.userId); //pass in item which is submitted through the form
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
+        __metadata("design:type", Object)
+    ], RegisterPage.prototype, "user", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
+        __metadata("design:type", Object)
+    ], RegisterPage.prototype, "password", void 0);
+    RegisterPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-register',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        New User -> Register\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="registerUser()">Register</button>\n\n\n\n    </div>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/,
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _f || Object])
+    ], RegisterPage);
+    return RegisterPage;
+    var _a, _b, _c, _d, _e, _f;
+}());
+
+//# sourceMappingURL=register.js.map
+
+/***/ }),
+
+/***/ 195:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Hashtable; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
@@ -720,234 +901,6 @@ var Hashtable = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 193:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(194);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var LoginPage = /** @class */ (function () {
-    function LoginPage(alertCtrl, fire, navCtrl, navParams) {
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    LoginPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad LoginPage');
-    };
-    LoginPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    LoginPage.prototype.signInUser = function () {
-        var _this = this;
-        this.fire.auth.signInWithEmailAndPassword(this.user.value, this.password.value)
-            .then(function (data) {
-            console.log('got data', _this.fire.auth.currentUser.displayName);
-            _this.alert('Success! You are logged in');
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
-        })
-            .catch(function (error) {
-            console.log('got an error', error);
-            _this.alert(error.message);
-        });
-        console.log('Would sign in with', this.user.value, this.password.value);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
-        __metadata("design:type", Object)
-    ], LoginPage.prototype, "user", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
-        __metadata("design:type", Object)
-    ], LoginPage.prototype, "password", void 0);
-    LoginPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        User Login\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="signInUser()">Sign In</button>\n\n    </div>\n\n\n\n\n\n</ion-card>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
-    ], LoginPage);
-    return LoginPage;
-}());
-
-//# sourceMappingURL=login.js.map
-
-/***/ }),
-
-/***/ 194:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(187);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-/**
- * Generated class for the TabsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var TabsPage = /** @class */ (function () {
-    function TabsPage() {
-        // constructor(public navCtrl: NavController, public navParams: NavParams) {
-        // }
-        // ionViewDidLoad() {
-        //   console.log('ionViewDidLoad TabsPage');
-        // }
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__["a" /* CurrencyPage */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__["a" /* AccountPage */];
-    }
-    TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/'<!--\n\n  Generated template for the TabsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<!-- <ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>tabs</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header> -->\n\n\n\n\n\n<ion-content padding>\n\n	<ion-tabs> \n\n    <ion-tab [root]="tab1Root" tabTitle = "Currencies" tabIcon = "star"> Currencies </ion-tab>\n\n    <ion-tab [root]="tab2Root" tabTitle = "Account" tabIcon = "book"> Account </ion-tab>\n\n    </ion-tabs>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/,
-        })
-    ], TabsPage);
-    return TabsPage;
-}());
-
-//# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(59);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var RegisterPage = /** @class */ (function () {
-    function RegisterPage(walletService, alertCtrl, fire, navCtrl, navParams) {
-        this.walletService = walletService;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.wallet = {
-            id: '',
-            totalamount: 0,
-            bitcoinamount: 0,
-            ethereumamount: 0,
-            litecoinamount: 0,
-            ripplecurrencyamount: 0,
-            transaction: ''
-        };
-    }
-    RegisterPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad RegisterPage');
-    };
-    RegisterPage.prototype.ngOnInit = function () {
-    };
-    RegisterPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    RegisterPage.prototype.registerUser = function () {
-        var _this = this;
-        this.fire.auth.createUserWithEmailAndPassword(this.user.value, this.password.value)
-            .then(function (data) {
-            console.log('got data', data);
-            _this.alert('Registered');
-            _this.userId = _this.fire.auth.currentUser.uid;
-            _this.onReg(_this.userId);
-            //console.log('uid',this.fire.auth.currentUser.uid);
-            console.log("new user id", _this.userId);
-        })
-            .catch(function (error) {
-            console.log('got an error', error);
-            _this.alert(error.message);
-        });
-        console.log('Would register user with', this.user.value, this.password.value);
-    };
-    RegisterPage.prototype.onReg = function (uid) {
-        this.wallet.id = this.userId;
-        this.walletService.addNewWallet(this.wallet, this.userId); //, this.userId); //pass in item which is submitted through the form
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
-        __metadata("design:type", Object)
-    ], RegisterPage.prototype, "user", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
-        __metadata("design:type", Object)
-    ], RegisterPage.prototype, "password", void 0);
-    RegisterPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        New User -> Register\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="registerUser()">Register</button>\n\n\n\n    </div>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
-    ], RegisterPage);
-    return RegisterPage;
-}());
-
-//# sourceMappingURL=register.js.map
-
-/***/ }),
-
 /***/ 205:
 /***/ (function(module, exports) {
 
@@ -978,35 +931,35 @@ var map = {
 		9
 	],
 	"../pages/currencypage/currencypage.module": [
-		547,
+		548,
 		8
 	],
 	"../pages/currencypage/ethereumpage/ethereumpage.module": [
-		548,
+		549,
 		7
 	],
 	"../pages/currencypage/litecoinpage/litecoinpage.module": [
-		549,
+		550,
 		6
 	],
 	"../pages/currencypage/ripplepage/ripplepage.module": [
-		550,
+		547,
 		5
 	],
 	"../pages/hashtable/hashtable.module": [
-		551,
+		554,
 		4
 	],
 	"../pages/login/login.module": [
-		552,
+		551,
 		3
 	],
 	"../pages/register/add-wallet/add-wallet.module": [
-		553,
+		552,
 		2
 	],
 	"../pages/register/register.module": [
-		554,
+		553,
 		1
 	],
 	"../pages/tabs/tabs.module": [
@@ -1110,22 +1063,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(316);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_auth__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_firestore__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_firestore__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angularfire2_database__ = __webpack_require__(490);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_component__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_home_home__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_currencypage_litecoinpage_litecoinpage__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_currencypage_ethereumpage_ethereumpage__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_currencypage_ripplepage_ripplepage__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_accountpage_accountpage__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_currencypage_currencypage__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tabs_tabs__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tabs_tabs__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_hash_table_hash_table__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_hashtable_hashtable__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_hashtable_hashtable__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_register_add_wallet_add_wallet__ = __webpack_require__(351);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1192,14 +1145,14 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/accountpage/accountpage.module#AccountPageModule', name: 'AccountPage', segment: 'accountpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/bitcoinpage/bitcoinpage.module#BitcoinPageModule', name: 'BitcoinPage', segment: 'bitcoinpage', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/ripplepage/ripplepage.module#RipplePageModule', name: 'RipplePage', segment: 'ripplepage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/currencypage.module#CurrencyPageModule', name: 'CurrencyPage', segment: 'currencypage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/ethereumpage/ethereumpage.module#EthereumPageModule', name: 'EthereumPage', segment: 'ethereumpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/litecoinpage/litecoinpage.module#LitecoinPageModule', name: 'LitecoinPage', segment: 'litecoinpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/ripplepage/ripplepage.module#RipplePageModule', name: 'RipplePage', segment: 'ripplepage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hashtable/hashtable.module#CurrencyPageModule', name: 'Hashtable', segment: 'hashtable', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/add-wallet/add-wallet.module#CurrencyPageModule', name: 'AddWallet', segment: 'add-wallet', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/hashtable/hashtable.module#CurrencyPageModule', name: 'Hashtable', segment: 'hashtable', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -1392,7 +1345,7 @@ var CurrencyPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HashTableProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
 // import { Injectable } from '@angular/core';
 //
@@ -1435,10 +1388,11 @@ var HashTableProvider = /** @class */ (function () {
         // })
         this.afs = afs;
         this.afAuth = afAuth;
-        this.userId = this.afAuth.auth.currentUser.uid;
-        console.log('injector uid', this.userId);
+        // this.userId = this.afAuth.auth.currentUser.uid;
+        //
+        // console.log('injector uid', this.userId);
         //this.walletsCollection = this.afs.collection('account info', ref => ref.orderBy('id', 'asc'));//.valueChanges(); // returns the collection as a observable
-        this.walletsCollection = this.afs.collection('account info'); //ref()
+        this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
         this.wallets = this.walletsCollection.snapshotChanges().map(function (changes) {
             //use snapshot changes and map the id
             //items is the collection
@@ -1448,18 +1402,22 @@ var HashTableProvider = /** @class */ (function () {
                 return data;
             });
         });
-        this.walletsCollection = this.afs.collection('account info'); //ref()
+        this.walletsCollection = this.afs.collection('USER WALLETS'); //ref()
         // this.wallets2 = this.walletsCollection.valueChanges();
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //this.walletDoc = afs.doc<Wallet>(`account info/${this.userId}`);
-        this.walletDoc = this.getWalletDoc();
-        // this.userwallet = this.walletDoc.valueChanges();
-        this.userwallet = this.walletDoc.snapshotChanges().map(function (changes) {
-            return changes.payload.data();
-        });
-        this.userwallet.subscribe(function (res) {
-            console.log("user's document:", res);
-        });
+        // this.walletDoc = afs.doc<Wallet>(`account info/${this.userId}`);
+        //
+        //  this.walletDoc = this.getWalletDoc();
+        //
+        //  // this.userwallet = this.walletDoc.valueChanges();
+        //
+        //   this.userwallet = this.walletDoc.snapshotChanges().map(changes => {
+        //     return changes.payload.data() as Wallet;
+        // });
+        //
+        //  this.userwallet.subscribe(res=>{
+        //      console.log("user's document:", res);
+        //  });
     }
     // setUID() {
     //     this.afAuth.authState.subscribe(user => {
@@ -1473,32 +1431,29 @@ var HashTableProvider = /** @class */ (function () {
         return this.wallets;
     };
     HashTableProvider.prototype.addNewWallet = function (wallet, uid) {
-        this.afs.collection("account info").doc(uid).set({ wallet: wallet })
-            .then(function () {
-            console.log("Document successfully written!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
+        // this.afs.collection("account info").doc(uid).set({wallet})
+        //     .then(function() {
+        //
+        //         console.log("Document successfully written!");
+        //     })
+        //     .catch(function(error) {
+        //         console.error("Error writing document: ", error);
+        //     });
+        this.walletsCollection.doc(uid).set(wallet);
     };
     HashTableProvider.prototype.deleteItem = function (wallet) {
-        this.walletDoc = this.afs.doc("account info/" + wallet.id); //picks a specific item
+        this.walletDoc = this.afs.doc("USER WALLETS/" + wallet.id); //picks a specific item
         this.walletDoc.delete(); //once you identified the specific item, it should delete
     };
     HashTableProvider.prototype.returnid = function () {
         return this.userId;
     };
-    HashTableProvider.prototype.getWalletDoc = function () {
-        this.walletDoc = this.afs.collection('account info').doc(this.userId);
-        //this.itemDoc = this.afs.doc(`account info/${this.userId}`);
-        return this.walletDoc;
-    };
     HashTableProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _b || Object])
     ], HashTableProvider);
     return HashTableProvider;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=hash-table.js.map

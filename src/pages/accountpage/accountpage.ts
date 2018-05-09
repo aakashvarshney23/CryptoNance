@@ -34,6 +34,11 @@ export class AccountPage implements OnInit{
     @ViewChild('ethereum') ethereum;
     @ViewChild('litecoin') litecoin;
     @ViewChild('ripple') ripple;
+    @ViewChild('total') total;
+
+    num : number;
+
+    //bitcoin : any;
 
     walletDoc : AngularFirestoreDocument <Wallet>;
 
@@ -50,6 +55,8 @@ export class AccountPage implements OnInit{
 
     //wallets: AngularFireList<any>;
 
+    transactionArray : Array<number> = [];
+
     constructor(private fire: AngularFireAuth,
                 public navCtrl: NavController,
                 public navParams: NavParams,
@@ -65,37 +72,32 @@ export class AccountPage implements OnInit{
 
         console.log('logged in user id', this.userId);
 
+        this.num = 50000;
         //this.wallets = db.list('account info');
-
     }
 
     ngOnInit(){
-        this.walletDoc = this.walletService.getWalletDoc();
-
-        this.walletDoc.ref.get().then(function(doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-
-        // // 1. make a reference
-        // this.linkRef = this.afs.collection('links').doc(this.userId);
+        // this.walletDoc = this.walletService.getWalletDoc();
         //
-        // // 2. get the Observable
-        // this.link = this.linkRef.valueChanges();
+        // this.walletDoc.ref.get().then(function(doc) {
+        //     if (doc.exists) {
+        //         console.log("Document data:", doc.data());
+        //
+        //     } else {
+        //         // doc.data() will be undefined in this case
+        //         console.log("No such document!");
+        //     }
+        // }).catch(function(error) {
+        //     console.log("Error getting document:", error);
+        // });
 
-        this.walletService.getWallet().subscribe(wallet => {
-            this.wallet = wallet; // items coming from the service are being set to the items property
-            console.log("wallet", this.wallet);
-            console.log("wallet id:", this.wallet.id);
-        });
 
+        // this.walletService.getWallet().subscribe(wallet => {
+        //     this.wallet = wallet; // items coming from the service are being set to the items property
+        //     console.log("wallet", this.wallet);
+        //     console.log("wallet id:", this.wallet.id);
+        // });
+        //
         this.walletService.getWallets().subscribe(wallets =>{
             this.wallets = wallets;
             console.log("observable wallets", wallets);
@@ -103,37 +105,13 @@ export class AccountPage implements OnInit{
         });
     }
 
-
-    // prompt() {
-    //     let confirm = this.alertCtrl.create({
-    //         title: 'Use this lightsaber?',
-    //         message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
-    //         buttons: [
-    //             {
-    //                 text: 'Disagree',
-    //                 handler: () => {
-    //                     console.log('Disagree clicked');
-    //                 }
-    //             },
-    //             {
-    //                 text: 'Agree',
-    //                 handler: () => {
-    //                     console.log('Agree clicked');
-    //                 }
-    //             }
-    //         ]
-    //
-    //     });
-    //     confirm.present();
-    // }
-
     updateFields(){
 
-        this.afs.collection("account info").doc(this.userId).update({
-             bitcoinamount: this.bitcoin.value,
-            ethereumamount: this.ethereum.value,
-            litecoinamount: this.litecoin.value,
-            ripplecurrencyamount: this.ripple.value
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+             bitcoinamount: +this.bitcoin.value,
+            ethereumamount: +this.ethereum.value,
+            litecoinamount: +this.litecoin.value,
+            ripplecurrencyamount: +this.ripple.value
         })
             .then(function() {
                 console.log("Bitcoin amount successfully updated");
@@ -145,8 +123,8 @@ export class AccountPage implements OnInit{
 
     updateBitcoinField(){
 
-        this.afs.collection("account info").doc(this.userId).update({
-             bitcoinamount: this.bitcoin.value,
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+             bitcoinamount: +this.bitcoin.value,
             // ethereumamount: this.ethereum.value,
             // litecoinamount: this.litecoin.value,
             // ripplecurrencyamount: this.ripple.value
@@ -161,9 +139,9 @@ export class AccountPage implements OnInit{
 
     updateEthereumField(){
 
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
-             ethereumamount: this.ethereum.value,
+             ethereumamount: +this.ethereum.value,
             // litecoinamount: this.litecoin.value,
             // ripplecurrencyamount: this.ripple.value
         })
@@ -177,10 +155,10 @@ export class AccountPage implements OnInit{
 
     updateLitecoinField(){
 
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
             //ethereumamount: this.ethereum.value,
-             litecoinamount: this.litecoin.value,
+             litecoinamount: +this.litecoin.value,
             // ripplecurrencyamount: this.ripple.value
         })
             .then(function() {
@@ -193,14 +171,30 @@ export class AccountPage implements OnInit{
 
     updateRippleField(){
 
-        this.afs.collection("account info").doc(this.userId).update({
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
             // bitcoinamount: this.bitcoin.value,
             // ethereumamount: this.ethereum.value,
             // litecoinamount: this.litecoin.value,
-             ripplecurrencyamount: this.ripple.value
+             ripplecurrencyamount: +this.ripple.value
         })
             .then(function() {
                 console.log("Ripple amount successfully updated");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+    }
+
+    updateAmountField(){
+        this.afs.collection('USER WALLETS').doc(this.userId).update({
+            // bitcoinamount: this.bitcoin.value,
+            // ethereumamount: this.ethereum.value,
+            // litecoinamount: this.litecoin.value,
+            //ripplecurrencyamount: this.ripple.value
+            totalamount: +this.total.value
+        })
+            .then(function() {
+                console.log("Total amount successfully updated");
             })
             .catch(function(error) {
                 console.error("Error writing document: ", error);

@@ -5,7 +5,10 @@ export interface Wallet{ //shows USD value of each owned amount
     ethereumamount?:number;
     litecoinamount?:number;
     ripplecurrencyamount?:number;
-    transaction?: string;//transaction id - can the map the type of transcation based on the kind of number
+    transaction?: Array<number>;//transaction id - can the map the type of transcation based on the kind of number
+    //transaction?: number;
+
+    //trans_no?: number; //array iterator
     // sellkey?:number;
     // sellamount?:number; //user can only sell one currency at a time
     //id%0 = buy
