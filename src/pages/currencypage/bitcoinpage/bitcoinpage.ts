@@ -68,7 +68,7 @@ export class BitcoinPage { //sell key = 1;
                 }
             }
 
-            //this.transactionArray = this.wallet.transaction;
+            this.transactionArray = this.wallet.transaction;
             //this.transaction = this.wallet.transaction;
             this.bitcoinamount = this.wallet.bitcoinamount;
             this.totalamount = this.wallet.totalamount;
@@ -89,13 +89,12 @@ export class BitcoinPage { //sell key = 1;
     sell(){
         console.log(this.transactionArray);
 
-        this.transactionArray.push(1234);
+        this.transactionArray.push(Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000);
 
         this.afs.collection("USER WALLETS").doc(this.userId).update({
             bitcoinamount : this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
             totalamount : this.totalamount + +this.sellCoins.value * bitcoin_val,
-            //transaction :  this.transactionArray
-            //transaction : this.transaction
+            transaction :  this.transactionArray
         })
             .then(function() {
                 console.log("Sell Amount logged!");
@@ -118,11 +117,13 @@ export class BitcoinPage { //sell key = 1;
     }
 
     buy(){
+
+        this.transactionArray.push(Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000);
+
         this.afs.collection("USER WALLETS").doc(this.userId).update({
             totalamount : this.totalamount - +this.buyCoins.value * bitcoin_val,
             bitcoinamount : this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
-            //transaction :  this.transactionArray.push(5678)
-            //transaction : this.transaction
+            transaction :  this.transactionArray
         })
             .then(function() {
                 console.log("Sell Amount logged!");
