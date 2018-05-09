@@ -5,15 +5,37 @@
     <title>Title</title>
 </head>
 <body>
+
 <button ion-button icon-only (click)="goback_currencypage();">
     <ion-icon name="arrow-back"></ion-icon>
 </button>
 
-    <ion-card>
-        <ion-card-content> <!-- presentActionSheet() -->
-             Welcome to the Ethereum Page!
-        </ion-card-content>
-    </ion-card>
+<ion-card>
+    <ion-card-content> <!-- presentActionSheet() -->
+        Welcome to the Ethereum Page!
+        Current Bitcoin Price: 755
+    </ion-card-content>
+</ion-card>
+
+<ion-card>
+    <div padding>
+        <ion-item>
+            <ion-label floating>Sell Amount</ion-label>
+            <ion-input type="number" #sellamount></ion-input>
+        </ion-item>
+        <button block ion-button (click)="sell()">Sell</button>
+
+    </div>
+
+    <div padding>
+        <ion-item>
+            <ion-label floating>Buy Amount</ion-label>
+            <ion-input type="number" #buyamount></ion-input>
+        </ion-item>
+        <button block ion-button (click)="buy()">Buy</button>
+    </div>
+
+</ion-card>
 
 </body>
 </html>

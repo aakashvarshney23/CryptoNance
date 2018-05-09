@@ -98,7 +98,7 @@ export class BitcoinPage { //sell key = 1;
         }
         else {
             let T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            let A = -Math.abs(+this.sellCoins.value * bitcoin_val);
+            let A = Math.abs(+this.sellCoins.value * bitcoin_val);
             this.addTrans(T, A);
 
             this.transactionArray.push(T);

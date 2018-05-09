@@ -335,7 +335,7 @@ var BitcoinPage = /** @class */ (function () {
         }
         else {
             var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = -Math.abs(+this.sellCoins.value * bitcoin_val);
+            var A = Math.abs(+this.sellCoins.value * bitcoin_val);
             this.addTrans(T, A);
             this.transactionArray.push(T);
             this.afs.collection("USER WALLETS").doc(this.userId).update({
@@ -435,7 +435,9 @@ var BitcoinPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currencypage__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(73);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -449,19 +451,123 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
- * Generated class for the EthereumPage page.
+ * Generated class for the BitcoinPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+var ethereum_val = 755;
 var EthereumPage = /** @class */ (function () {
-    function EthereumPage(alertCtrl, fire, navCtrl, navParams) {
+    function EthereumPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
+        var _this = this;
         this.alertCtrl = alertCtrl;
         this.fire = fire;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.walletService = walletService;
+        this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
+        this.transactionArray = [];
+        this.userId = this.fire.auth.currentUser.uid;
+        this.walletService.getWallets().subscribe(function (wallet) {
+            _this.wallets = wallet;
+            console.log("Wallets from sell", _this.wallets);
+            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
+                var wallet_1 = _a[_i];
+                if (wallet_1.id == _this.userId) {
+                    _this.wallet = wallet_1;
+                    console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
+                }
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
+                    _this.wallet2 = wallet_1;
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
+                }
+            }
+            _this.transactionArray = _this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
+            _this.ethereumamount = _this.wallet.ethereumamount;
+            _this.totalamount = _this.wallet.totalamount;
+            _this.ethereumamount2 = _this.wallet2.ethereumamount;
+            _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+        });
     }
+    EthereumPage.prototype.goback_currencypage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
+    };
+    EthereumPage.prototype.sell = function () {
+        if ((+this.sellCoins.value * ethereum_val) > this.ethereumamount || (+this.sellCoins.value * ethereum_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = Math.abs(+this.sellCoins.value * ethereum_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                ethereumamount: this.ethereumamount - +this.sellCoins.value * ethereum_val,
+                totalamount: this.totalamount + +this.sellCoins.value * ethereum_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                ethereumamount: this.ethereumamount2 + +this.sellCoins.value * ethereum_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * ethereum_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    EthereumPage.prototype.buy = function () {
+        if ((+this.buyCoins.value * ethereum_val) > this.totalamount || (+this.buyCoins.value * ethereum_val) > this.ethereumamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * ethereum_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * ethereum_val,
+                ethereumamount: this.ethereumamount + +this.buyCoins.value * ethereum_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * ethereum_val,
+                ethereumamount: this.ethereumamount2 - +this.buyCoins.value * ethereum_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
     EthereumPage.prototype.alert = function (message) {
         this.alertCtrl.create({
             title: 'Info!',
@@ -469,24 +575,27 @@ var EthereumPage = /** @class */ (function () {
             buttons: ['OK']
         }).present();
     };
-    EthereumPage.prototype.goback_currencypage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__currencypage__["a" /* CurrencyPage */]);
+    EthereumPage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
         __metadata("design:type", Object)
-    ], EthereumPage.prototype, "user", void 0);
+    ], EthereumPage.prototype, "sellCoins", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
         __metadata("design:type", Object)
-    ], EthereumPage.prototype, "password", void 0);
+    ], EthereumPage.prototype, "buyCoins", void 0);
     EthereumPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ethereumpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Ethereum Page!\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/,
+            selector: 'page-ethereumpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ethereum Page!\n\n        Current Bitcoin Price: 755\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _f || Object])
     ], EthereumPage);
     return EthereumPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=ethereumpage.js.map
