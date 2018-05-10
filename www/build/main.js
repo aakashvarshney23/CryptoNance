@@ -7,9 +7,9 @@ webpackJsonp([12],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hashtable_hashtable__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hashtable_hashtable__ = __webpack_require__(193);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -51,7 +51,7 @@ var HomePage = /** @class */ (function () {
     ], HomePage.prototype, "password", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/'<ion-card>\n\n    <html>\n\n    <body>\n\n    <h1> <b>CryptoNance </b></h1>\n\n    <img src="https://cdn.wccftech.com/wp-content/uploads/2017/12/Bulgarian-Bitcoin-Horde-01-Header-2060x1133.jpg" alt="Sample" style="width:358px;height:270px;">\n\n\n\n    <p style="text-align:center;" > A Cryptocurreny trading website</p>\n\n\n\n\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="signIn()">Sign In</button>\n\n        <button ion-button color="default" (click)="register()">Register?</button>\n\n    </div>\n\n    <div id="topButtons">\n\n        <button ion-button color="default" (click)="hash_view()">Database Testing</button>\n\n    </div>\n\n\n\n\n\n    </body>\n\n    </html>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/home/home.html"*/'<ion-card>\n    <html>\n    <body>\n    <h1> <b>CryptoNance </b></h1>\n\n\n    <div class="item item-image">\n        <img src="https://cdn.wccftech.com/wp-content/uploads/2017/12/Bulgarian-Bitcoin-Horde-01-Header-2060x1133.jpg" alt="Sample" style="width:358px;height:270px;">\n    </div>\n    <p style="text-align:center;" > A Cryptocurreny trading website</p>\n\n\n    <div id="topButtons">\n        <button ion-button color="default" (click)="signIn()">Sign In</button>\n        <button ion-button color="default" (click)="register()">Register?</button>\n    </div>\n    <div id="topButtons">\n        <button ion-button color="default" (click)="hash_view()">Database Testing</button>\n    </div>\n\n\n    </body>\n    </html>\n\n</ion-card>\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]])
     ], HomePage);
@@ -240,7 +240,7 @@ var AccountPage = /** @class */ (function () {
     ], AccountPage.prototype, "total", void 0);
     AccountPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-accountpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/'\n\n<!--<ion-card>-->\n\n<!--&lt;!&ndash;<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;&ndash;&gt;-->\n\n<!--<strong> ID: {{wallet.id}} </strong>-->\n\n    <!--&lt;!&ndash;bitcoin amount: {{userwallet.bitcoinamount}} ,&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ethereum amount: {{userwallet.ethereumamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;litecoin amount: {{userwallet.litecoinamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;ripple amount: {{userwallet.ripplecurrencyamount}},&ndash;&gt;-->\n\n    <!--&lt;!&ndash;transaction amount: {{userwallet.transaction}}&lt;!&ndash; use wallet.id to see the actual id of the document &ndash;&gt;&ndash;&gt;-->\n\n<!--</ion-card>-->\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf= "wallets?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n    <ul *ngFor="let wallet of wallets" class="collection"> <!-- run the loop -->\n\n\n\n    <div *ngIf = "wallet.id == userId; else noItems" >\n\n        <ion-card>\n\n        <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n\n        <ul>\n\n            <strong> ID : {{wallet.id}} </strong>\n\n        </ul>\n\n           <ul>Bitcoin Currency Amount : {{wallet.bitcoinamount}}</ul> <!-- use items.id to see the actual id of the document -->\n\n            <ul>Ethereum Currency Amount : {{wallet.ethereumamount}}</ul>\n\n            <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>\n\n            <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>\n\n            <ul>TOTAL AMOUNT : {{wallet.totalamount}}</ul>\n\n\n\n            <ul>\n\n                TRANSACTIONS:\n\n                <ion-item *ngFor="let item of wallet.transaction;">\n\n                    {{item}}\n\n                </ion-item>\n\n             </ul>\n\n        </ion-card>\n\n    </div>\n\n\n\n    </ul>\n\n\n\n</div>\n\n\n\n<ng-template #noWallets> <!-- run the else statement -->\n\n<hr>\n\n<h5> There are no items to list </h5>\n\n</ng-template>\n\n\n\n\n\n    <ion-card>\n\n        <ion-item>\n\n            <ion-label floating>Bitcoin Amount Edit</ion-label>\n\n            <ion-input type="number" #bitcoin></ion-input>\n\n            <!--<ion-input type="number" min="1" [value]="bitcoin" [(ngModel)]="bitcoin"></ion-input>-->\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateBitcoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ethereum Amount Edit</ion-label>\n\n            <ion-input type="number" #ethereum></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateEthereumField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Litecoin Amount Edit</ion-label>\n\n            <ion-input type="number" #litecoin></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateLitecoinField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Ripple Amount Edit</ion-label>\n\n            <ion-input type="number" #ripple></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateRippleField()">Update</button>\n\n        </div>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Total Amount Edit</ion-label>\n\n            <ion-input type="number" #total></ion-input>\n\n        </ion-item>\n\n\n\n        <div>\n\n            <button block ion-button (click)="updateAmountField()">Update</button>\n\n        </div>\n\n        <!--<div>-->\n\n            <!--<button block ion-button (click)="updateFields()">Update</button>-->\n\n        <!--</div>-->\n\n    </ion-card>\n\n\n\n<ion-content>\n\n\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\accountpage\accountpage.html"*/,
+            selector: 'page-accountpage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/accountpage/accountpage.html"*/'\n<!--<ion-card>-->\n<!--&lt;!&ndash;<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;&ndash;&gt;-->\n<!--<strong> ID: {{wallet.id}} </strong>-->\n    <!--&lt;!&ndash;bitcoin amount: {{userwallet.bitcoinamount}} ,&ndash;&gt;-->\n    <!--&lt;!&ndash;ethereum amount: {{userwallet.ethereumamount}},&ndash;&gt;-->\n    <!--&lt;!&ndash;litecoin amount: {{userwallet.litecoinamount}},&ndash;&gt;-->\n    <!--&lt;!&ndash;ripple amount: {{userwallet.ripplecurrencyamount}},&ndash;&gt;-->\n    <!--&lt;!&ndash;transaction amount: {{userwallet.transaction}}&lt;!&ndash; use wallet.id to see the actual id of the document &ndash;&gt;&ndash;&gt;-->\n<!--</ion-card>-->\n\n<ion-content padding>\n\n<div *ngIf= "wallets?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n    <ul *ngFor="let wallet of wallets" class="collection"> <!-- run the loop -->\n\n    <div *ngIf = "wallet.id == userId; else noItems" >\n        <ion-card>\n        <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n        <ul>\n            <strong> ID : {{wallet.id}} </strong>\n        </ul>\n           <ul>Bitcoin Currency Amount : {{wallet.bitcoinamount}}</ul> <!-- use items.id to see the actual id of the document -->\n            <ul>Ethereum Currency Amount : {{wallet.ethereumamount}}</ul>\n            <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>\n            <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>\n            <ul>TOTAL AMOUNT : {{wallet.totalamount}}</ul>\n\n            <ul>\n                TRANSACTIONS:\n                <ion-item *ngFor="let item of wallet.transaction;">\n                    {{item}}\n                </ion-item>\n             </ul>\n        </ion-card>\n    </div>\n\n    </ul>\n\n</div>\n\n<ng-template #noWallets> <!-- run the else statement -->\n<hr>\n<h5> There are no items to list </h5>\n</ng-template>\n\n\n    <ion-card>\n        <ion-item>\n            <ion-label floating>Bitcoin Amount Edit</ion-label>\n            <ion-input type="number" #bitcoin></ion-input>\n            <!--<ion-input type="number" min="1" [value]="bitcoin" [(ngModel)]="bitcoin"></ion-input>-->\n        </ion-item>\n\n        <div>\n            <button block ion-button (click)="updateBitcoinField()">Update</button>\n        </div>\n\n        <ion-item>\n            <ion-label floating>Ethereum Amount Edit</ion-label>\n            <ion-input type="number" #ethereum></ion-input>\n        </ion-item>\n\n        <div>\n            <button block ion-button (click)="updateEthereumField()">Update</button>\n        </div>\n\n        <ion-item>\n            <ion-label floating>Litecoin Amount Edit</ion-label>\n            <ion-input type="number" #litecoin></ion-input>\n        </ion-item>\n\n        <div>\n            <button block ion-button (click)="updateLitecoinField()">Update</button>\n        </div>\n\n        <ion-item>\n            <ion-label floating>Ripple Amount Edit</ion-label>\n            <ion-input type="number" #ripple></ion-input>\n        </ion-item>\n\n        <div>\n            <button block ion-button (click)="updateRippleField()">Update</button>\n        </div>\n\n        <ion-item>\n            <ion-label floating>Total Amount Edit</ion-label>\n            <ion-input type="number" #total></ion-input>\n        </ion-item>\n\n        <div>\n            <button block ion-button (click)="updateAmountField()">Update</button>\n        </div>\n        <!--<div>-->\n            <!--<button block ion-button (click)="updateFields()">Update</button>-->\n        <!--</div>-->\n    </ion-card>\n\n<ion-content>\n\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/accountpage/accountpage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
@@ -419,7 +419,7 @@ var BitcoinPage = /** @class */ (function () {
     ], BitcoinPage.prototype, "buyCoins", void 0);
     BitcoinPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-bitcoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Bitcoin Page!\n\n            Current Bitcoin Price: 9753\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/,
+            selector: 'page-bitcoinpage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/bitcoinpage/bitcoinpage.html"*/'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n    <ion-card>\n        <ion-card-content> <!-- presentActionSheet() -->\n             Welcome to the Bitcoin Page!\n            Current Bitcoin Price: 9753\n        </ion-card-content>\n    </ion-card>\n\n<ion-card>\n    <div padding>\n        <ion-item>\n            <ion-label floating>Sell Amount</ion-label>\n            <ion-input type="number" #sellamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="sell()">Sell</button>\n\n    </div>\n\n    <div padding>\n        <ion-item>\n            <ion-label floating>Buy Amount</ion-label>\n            <ion-input type="number" #buyamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="buy()">Buy</button>\n    </div>\n\n</ion-card>\n\n</body>\n</html>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/bitcoinpage/bitcoinpage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
@@ -598,7 +598,7 @@ var EthereumPage = /** @class */ (function () {
     ], EthereumPage.prototype, "buyCoins", void 0);
     EthereumPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ethereumpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ethereum Page!\n\n        Current Ethereum Price: 755\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/,
+            selector: 'page-ethereumpage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/ethereumpage/ethereumpage.html"*/'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n<ion-card>\n    <ion-card-content> <!-- presentActionSheet() -->\n        Welcome to the Ethereum Page!\n        Current Ethereum Price: 755\n    </ion-card-content>\n</ion-card>\n\n<ion-card>\n    <div padding>\n        <ion-item>\n            <ion-label floating>Sell Amount</ion-label>\n            <ion-input type="number" #sellamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="sell()">Sell</button>\n\n    </div>\n\n    <div padding>\n        <ion-item>\n            <ion-label floating>Buy Amount</ion-label>\n            <ion-input type="number" #buyamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="buy()">Buy</button>\n    </div>\n\n</ion-card>\n\n</body>\n</html>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/ethereumpage/ethereumpage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
@@ -777,7 +777,7 @@ var LitecoinPage = /** @class */ (function () {
     ], LitecoinPage.prototype, "buyCoins", void 0);
     LitecoinPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-litecoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Litecoin Page!\n\n        Current Litecoin Price: 154\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/,
+            selector: 'page-litecoinpage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/litecoinpage/litecoinpage.html"*/'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n<ion-card>\n    <ion-card-content> <!-- presentActionSheet() -->\n        Welcome to the Litecoin Page!\n        Current Litecoin Price: 154\n    </ion-card-content>\n</ion-card>\n\n<ion-card>\n    <div padding>\n        <ion-item>\n            <ion-label floating>Sell Amount</ion-label>\n            <ion-input type="number" #sellamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="sell()">Sell</button>\n\n    </div>\n\n    <div padding>\n        <ion-item>\n            <ion-label floating>Buy Amount</ion-label>\n            <ion-input type="number" #buyamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="buy()">Buy</button>\n    </div>\n\n</ion-card>\n\n</body>\n</html>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/litecoinpage/litecoinpage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
@@ -956,7 +956,7 @@ var RipplePage = /** @class */ (function () {
     ], RipplePage.prototype, "buyCoins", void 0);
     RipplePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ripplepage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ripple Page!\n\n        Current Ripple Price: 1\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/,
+            selector: 'page-ripplepage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/ripplepage/ripplepage.html"*/'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n<ion-card>\n    <ion-card-content> <!-- presentActionSheet() -->\n        Welcome to the Ripple Page!\n        Current Ripple Price: 1\n    </ion-card-content>\n</ion-card>\n\n<ion-card>\n    <div padding>\n        <ion-item>\n            <ion-label floating>Sell Amount</ion-label>\n            <ion-input type="number" #sellamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="sell()">Sell</button>\n\n    </div>\n\n    <div padding>\n        <ion-item>\n            <ion-label floating>Buy Amount</ion-label>\n            <ion-input type="number" #buyamount></ion-input>\n        </ion-item>\n        <button block ion-button (click)="buy()">Buy</button>\n    </div>\n\n</ion-card>\n\n</body>\n</html>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/ripplepage/ripplepage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
@@ -1067,7 +1067,7 @@ var ViewcurrencyPage = /** @class */ (function () {
     };
     ViewcurrencyPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viewcurrency',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/'<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-content padding>\n\n\n\n    <div *ngIf= "datas?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n        <ul *ngFor="let data of datas" class="collection"> <!-- run the loop -->\n\n\n\n            <div *ngIf = " data.id == \'Currencies\'; else noItems" >\n\n                <ion-card>\n\n                    <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n\n                    <ion-title> Tron </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[0]}}\n\n                    </ion-card>\n\n                    <ion-title> Ripple </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[1]}}\n\n                    </ion-card>\n\n                    <ion-title> Litecoin </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[2]}}\n\n                    </ion-card>\n\n                    <ion-title> DigixDAO </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[3]}}\n\n                    </ion-card>\n\n                    <ion-title> Monero </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[4]}}\n\n                    </ion-card>\n\n                    <ion-title> Ethereum </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[5]}}\n\n                    </ion-card>\n\n                    <ion-title> Bitcoin Cash </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[6]}}\n\n                    </ion-card>\n\n                    <ion-title> Bitcoin </ion-title>\n\n                    <ion-card>\n\n                        {{data.array[7]}}\n\n                    </ion-card>\n\n\n\n                </ion-card>\n\n            </div>\n\n\n\n        </ul>\n\n\n\n    </div>\n\n\n\n    <ng-template #noWallets> <!-- run the else statement -->\n\n        <hr>\n\n        <h5> There are no items to list </h5>\n\n    </ng-template>\n\n\n\n    <ion-content>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/,
+            selector: 'page-viewcurrency',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/viewcurrency/viewcurrency.html"*/'<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n\n<button ion-button icon-only (click)="goback_currencypage();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n<ion-content padding>\n\n    <div *ngIf= "datas?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n        <ul *ngFor="let data of datas" class="collection"> <!-- run the loop -->\n\n            <div *ngIf = " data.id == \'Currencies\'; else noItems" >\n                <ion-card>\n                    <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n                    <ion-title> Tron </ion-title>\n                    <ion-card>\n                        {{data.array[0]}}\n                    </ion-card>\n                    <ion-title> Ripple </ion-title>\n                    <ion-card>\n                        {{data.array[1]}}\n                    </ion-card>\n                    <ion-title> Litecoin </ion-title>\n                    <ion-card>\n                        {{data.array[2]}}\n                    </ion-card>\n                    <ion-title> DigixDAO </ion-title>\n                    <ion-card>\n                        {{data.array[3]}}\n                    </ion-card>\n                    <ion-title> Monero </ion-title>\n                    <ion-card>\n                        {{data.array[4]}}\n                    </ion-card>\n                    <ion-title> Ethereum </ion-title>\n                    <ion-card>\n                        {{data.array[5]}}\n                    </ion-card>\n                    <ion-title> Bitcoin Cash </ion-title>\n                    <ion-card>\n                        {{data.array[6]}}\n                    </ion-card>\n                    <ion-title> Bitcoin </ion-title>\n                    <ion-card>\n                        {{data.array[7]}}\n                    </ion-card>\n\n                </ion-card>\n            </div>\n\n        </ul>\n\n    </div>\n\n    <ng-template #noWallets> <!-- run the else statement -->\n        <hr>\n        <h5> There are no items to list </h5>\n    </ng-template>\n\n    <ion-content>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/viewcurrency/viewcurrency.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
@@ -1084,241 +1084,6 @@ var ViewcurrencyPage = /** @class */ (function () {
 /***/ }),
 
 /***/ 193:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__ = __webpack_require__(38);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var RegisterPage = /** @class */ (function () {
-    function RegisterPage(walletService, alertCtrl, fire, navCtrl, navParams, afs) {
-        this.walletService = walletService;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.afs = afs;
-        this.transaction_array = [];
-        this.wallet = {
-            id: '',
-            totalamount: 0,
-            bitcoinamount: 0,
-            ethereumamount: 0,
-            litecoinamount: 0,
-            ripplecurrencyamount: 0,
-            //transaction : 0;
-            transaction: this.transaction_array
-        };
-        this.transactionArray = [];
-        //this.userId = fire.auth.currentUser.uid;
-    }
-    RegisterPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad RegisterPage');
-    };
-    RegisterPage.prototype.ngOnInit = function () {
-    };
-    RegisterPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    RegisterPage.prototype.registerUser = function () {
-        var _this = this;
-        this.fire.auth.createUserWithEmailAndPassword(this.user.value, this.password.value)
-            .then(function (data) {
-            console.log('got data', data);
-            _this.alert('Registered');
-            _this.userId = _this.fire.auth.currentUser.uid;
-            _this.onReg(_this.userId);
-            console.log("new user id", _this.userId);
-        })
-            .catch(function (error) {
-            console.log('got an error', error);
-            _this.alert(error.message);
-        });
-        console.log('Would register user with', this.user.value, this.password.value);
-    };
-    RegisterPage.prototype.onReg = function (uid) {
-        this.wallet.id = uid;
-        this.walletService.addNewWallet(this.wallet, uid); //, this.userId); //pass in item which is submitted through the form
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
-        __metadata("design:type", Object)
-    ], RegisterPage.prototype, "user", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
-        __metadata("design:type", Object)
-    ], RegisterPage.prototype, "password", void 0);
-    RegisterPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        New User -> Register\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="registerUser()">Register</button>\n\n\n\n    </div>\n\n\n\n</ion-card>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\register.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]])
-    ], RegisterPage);
-    return RegisterPage;
-}());
-
-//# sourceMappingURL=register.js.map
-
-/***/ }),
-
-/***/ 194:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(187);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-/**
- * Generated class for the TabsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var TabsPage = /** @class */ (function () {
-    function TabsPage() {
-        // constructor(public navCtrl: NavController, public navParams: NavParams) {
-        // }
-        // ionViewDidLoad() {
-        //   console.log('ionViewDidLoad TabsPage');
-        // }
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__["a" /* CurrencyPage */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__["a" /* AccountPage */];
-    }
-    TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/'<!--\n\n  Generated template for the TabsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<!-- <ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>tabs</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header> -->\n\n\n\n\n\n<ion-content padding>\n\n	<ion-tabs> \n\n    <ion-tab [root]="tab1Root" tabTitle = "Currencies" tabIcon = "star"> Currencies </ion-tab>\n\n    <ion-tab [root]="tab2Root" tabTitle = "Account" tabIcon = "book"> Account </ion-tab>\n\n    </ion-tabs>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\tabs\tabs.html"*/,
-        })
-    ], TabsPage);
-    return TabsPage;
-}());
-
-//# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(194);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var LoginPage = /** @class */ (function () {
-    function LoginPage(alertCtrl, fire, navCtrl, navParams) {
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    LoginPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad LoginPage');
-    };
-    LoginPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    LoginPage.prototype.signInUser = function () {
-        var _this = this;
-        this.fire.auth.signInWithEmailAndPassword(this.user.value, this.password.value)
-            .then(function (data) {
-            console.log('got data', _this.fire.auth.currentUser.displayName);
-            _this.alert('Success! You are logged in');
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
-        })
-            .catch(function (error) {
-            console.log('got an error', error);
-            _this.alert(error.message);
-        });
-        console.log('Would sign in with', this.user.value, this.password.value);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
-        __metadata("design:type", Object)
-    ], LoginPage.prototype, "user", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
-        __metadata("design:type", Object)
-    ], LoginPage.prototype, "password", void 0);
-    LoginPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/'<ion-card>\n\n\n\n    <ion-card-header>\n\n        User Login\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Username</ion-label>\n\n            <ion-input type="text" #username></ion-input>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label floating>Password</ion-label>\n\n            <ion-input type="password" #password></ion-input>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <div padding>\n\n        <button block ion-button (click)="signInUser()">Sign In</button>\n\n    </div>\n\n\n\n\n\n</ion-card>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\login\login.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
-    ], LoginPage);
-    return LoginPage;
-}());
-
-//# sourceMappingURL=login.js.map
-
-/***/ }),
-
-/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1461,7 +1226,7 @@ var Hashtable = /** @class */ (function () {
     };
     Hashtable = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-hashtable',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\hashtable\hashtable.html"*/'<button ion-button icon-only (click)="goback_home();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n\n\n<ion-content padding>\n\n\n\n    <div *ngIf= "hashes?.length > 0; else noItems" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n        <ul *ngFor="let hash of hashes" class="collection"> <!-- run the loop -->\n\n\n\n            <div *ngIf = "hash.id == \'Hashtable\'; else noItems" >\n\n\n\n\n\n                <ion-item *ngFor="let item of hash.array;">\n\n                       {{item}}\n\n                </ion-item>\n\n            </div>\n\n\n\n        </ul>\n\n\n\n    </div>\n\n\n\n<ng-template #noItems> <!-- run the else statement -->\n\n    <hr>\n\n    <h5> There are no items to list </h5>\n\n</ng-template>\n\n\n\n\n\n<!--<ng-template #noItems> &lt;!&ndash; run the else statement &ndash;&gt;-->\n\n<!--<hr>-->\n\n<!--<h5> There are no items to list </h5>-->\n\n<!--</ng-template>-->\n\n\n\n</ion-content>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\hashtable\hashtable.html"*/,
+            selector: 'page-hashtable',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/hashtable/hashtable.html"*/'<button ion-button icon-only (click)="goback_home();">\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n\n<ion-content padding>\n\n    <div *ngIf= "hashes?.length > 0; else noItems" > <!-- if the length of the fetched data is greater than zero -->\n\n        <ul *ngFor="let hash of hashes" class="collection"> <!-- run the loop -->\n\n            <div *ngIf = "hash.id == \'Hashtable\'; else noItems" >\n\n\n                <ion-item *ngFor="let item of hash.array;">\n                       {{item}}\n                </ion-item>\n            </div>\n\n        </ul>\n\n    </div>\n\n<ng-template #noItems> <!-- run the else statement -->\n    <hr>\n    <h5> There are no items to list </h5>\n</ng-template>\n\n\n<!--<ng-template #noItems> &lt;!&ndash; run the else statement &ndash;&gt;-->\n<!--<hr>-->\n<!--<h5> There are no items to list </h5>-->\n<!--</ng-template>-->\n\n</ion-content>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/hashtable/hashtable.html"*/,
         })
         //export class Hashtable {
         //private accountInfo: AngularFirestoreCollection<Account>;
@@ -1472,13 +1237,247 @@ var Hashtable = /** @class */ (function () {
         //     //this.accountInfo = afs.collection<Account>('account info');
         // }
         ,
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */]])
     ], Hashtable);
     return Hashtable;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=hashtable.js.map
+
+/***/ }),
+
+/***/ 194:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(195);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var LoginPage = /** @class */ (function () {
+    function LoginPage(alertCtrl, fire, navCtrl, navParams) {
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoginPage');
+    };
+    LoginPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    LoginPage.prototype.signInUser = function () {
+        var _this = this;
+        this.fire.auth.signInWithEmailAndPassword(this.user.value, this.password.value)
+            .then(function (data) {
+            console.log('got data', _this.fire.auth.currentUser.displayName);
+            _this.alert('Success! You are logged in');
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
+        })
+            .catch(function (error) {
+            console.log('got an error', error);
+            _this.alert(error.message);
+        });
+        console.log('Would sign in with', this.user.value, this.password.value);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
+        __metadata("design:type", Object)
+    ], LoginPage.prototype, "user", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
+        __metadata("design:type", Object)
+    ], LoginPage.prototype, "password", void 0);
+    LoginPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-login',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/login/login.html"*/'<ion-card>\n\n    <ion-card-header>\n        User Login\n    </ion-card-header>\n\n    <ion-list>\n\n        <ion-item>\n            <ion-label floating>Username</ion-label>\n            <ion-input type="text" #username></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" #password></ion-input>\n        </ion-item>\n\n    </ion-list>\n\n    <div padding>\n        <button block ion-button (click)="signInUser()">Sign In</button>\n    </div>\n\n\n</ion-card>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/login/login.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+    ], LoginPage);
+    return LoginPage;
+}());
+
+//# sourceMappingURL=login.js.map
+
+/***/ }),
+
+/***/ 195:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(187);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+/**
+ * Generated class for the TabsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var TabsPage = /** @class */ (function () {
+    function TabsPage() {
+        // constructor(public navCtrl: NavController, public navParams: NavParams) {
+        // }
+        // ionViewDidLoad() {
+        //   console.log('ionViewDidLoad TabsPage');
+        // }
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__["a" /* CurrencyPage */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__["a" /* AccountPage */];
+    }
+    TabsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-tabs',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/tabs/tabs.html"*/'<!--\n  Generated template for the TabsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<!-- <ion-header>\n\n  <ion-navbar>\n    <ion-title>tabs</ion-title>\n  </ion-navbar>\n\n</ion-header> -->\n\n\n<ion-content padding>\n	<ion-tabs> \n    <ion-tab [root]="tab1Root" tabTitle = "Currencies" tabIcon = "star"> Currencies </ion-tab>\n    <ion-tab [root]="tab2Root" tabTitle = "Account" tabIcon = "book"> Account </ion-tab>\n    </ion-tabs>\n</ion-content>\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/tabs/tabs.html"*/,
+        })
+    ], TabsPage);
+    return TabsPage;
+}());
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 196:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__ = __webpack_require__(38);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Generated class for the RegisterPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var RegisterPage = /** @class */ (function () {
+    function RegisterPage(walletService, alertCtrl, fire, navCtrl, navParams, afs) {
+        this.walletService = walletService;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.afs = afs;
+        this.transaction_array = [];
+        this.wallet = {
+            id: '',
+            totalamount: 0,
+            bitcoinamount: 0,
+            ethereumamount: 0,
+            litecoinamount: 0,
+            ripplecurrencyamount: 0,
+            //transaction : 0;
+            transaction: this.transaction_array
+        };
+        this.transactionArray = [];
+        //this.userId = fire.auth.currentUser.uid;
+    }
+    RegisterPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad RegisterPage');
+    };
+    RegisterPage.prototype.ngOnInit = function () {
+    };
+    RegisterPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    RegisterPage.prototype.registerUser = function () {
+        var _this = this;
+        this.fire.auth.createUserWithEmailAndPassword(this.user.value, this.password.value)
+            .then(function (data) {
+            console.log('got data', data);
+            _this.alert('Registered');
+            _this.userId = _this.fire.auth.currentUser.uid;
+            _this.onReg(_this.userId);
+            console.log("new user id", _this.userId);
+        })
+            .catch(function (error) {
+            console.log('got an error', error);
+            _this.alert(error.message);
+        });
+        console.log('Would register user with', this.user.value, this.password.value);
+    };
+    RegisterPage.prototype.onReg = function (uid) {
+        this.wallet.id = uid;
+        this.walletService.addNewWallet(this.wallet, uid); //, this.userId); //pass in item which is submitted through the form
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('username'),
+        __metadata("design:type", Object)
+    ], RegisterPage.prototype, "user", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('password'),
+        __metadata("design:type", Object)
+    ], RegisterPage.prototype, "password", void 0);
+    RegisterPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-register',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/register/register.html"*/'<ion-card>\n\n    <ion-card-header>\n        New User -> Register\n    </ion-card-header>\n\n    <ion-list>\n\n        <ion-item>\n            <ion-label floating>Username</ion-label>\n            <ion-input type="text" #username></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" #password></ion-input>\n        </ion-item>\n\n    </ion-list>\n\n    <div padding>\n        <button block ion-button (click)="registerUser()">Register</button>\n\n    </div>\n\n</ion-card>\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/register/register.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], RegisterPage);
+    return RegisterPage;
+}());
+
+//# sourceMappingURL=register.js.map
 
 /***/ }),
 
@@ -1512,7 +1511,7 @@ var map = {
 		10
 	],
 	"../pages/currencypage/currencypage.module": [
-		551,
+		549,
 		9
 	],
 	"../pages/currencypage/ethereumpage/ethereumpage.module": [
@@ -1520,35 +1519,35 @@ var map = {
 		8
 	],
 	"../pages/currencypage/litecoinpage/litecoinpage.module": [
-		549,
+		551,
 		7
 	],
 	"../pages/currencypage/ripplepage/ripplepage.module": [
-		553,
+		552,
 		6
 	],
 	"../pages/currencypage/viewcurrency/viewcurrency.module": [
-		552,
+		553,
 		5
 	],
 	"../pages/hashtable/hashtable.module": [
-		558,
+		554,
 		4
 	],
 	"../pages/login/login.module": [
-		557,
+		555,
 		3
 	],
 	"../pages/register/add-wallet/add-wallet.module": [
-		556,
+		557,
 		2
 	],
 	"../pages/register/register.module": [
-		554,
+		556,
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		555,
+		558,
 		0
 	]
 };
@@ -1611,7 +1610,7 @@ var AddWallet = /** @class */ (function () {
     };
     AddWallet = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-add-wallet',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\add-wallet\add-wallet.html"*/'<!--<div class = "card">-->\n\n        <!--<div class = "card-content">-->\n\n            <!--<span class = "card-title"> Add Item</span>-->\n\n            <!--<form (ngSubmit)= "onSubmit()" class = "cols6">-->\n\n                <!--<div class="row">-->\n\n                    <!--<div class = "input-field col s6">-->\n\n                        <!--<input type="text" placeholder = "Add Title" [(ngModel)]="item.title" name="title"> &lt;!&ndash;use NgModel to bind the tile item.title &ndash;&gt;-->\n\n                        <!--<label>Title</label>-->\n\n                    <!--</div>-->\n\n                    <!--<div class = "input-field col s6">-->\n\n                        <!--<input type="text" placeholder="Add Description" [(ngModel)] = "item.description" name="description" >-->\n\n                        <!--<label>Description</label>-->\n\n                    <!--</div>-->\n\n                <!--</div>-->\n\n                <!--<input type="submit" value="Submit" class="btn">-->\n\n            <!--</form>-->\n\n        <!--</div>-->\n\n<!--</div>-->\n\n\n\n<ion-card>\n\n    <ion-content>\n\n        A new wallet has been created!\n\n    </ion-content>\n\n</ion-card>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\register\add-wallet\add-wallet.html"*/,
+            selector: 'page-add-wallet',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/register/add-wallet/add-wallet.html"*/'<!--<div class = "card">-->\n        <!--<div class = "card-content">-->\n            <!--<span class = "card-title"> Add Item</span>-->\n            <!--<form (ngSubmit)= "onSubmit()" class = "cols6">-->\n                <!--<div class="row">-->\n                    <!--<div class = "input-field col s6">-->\n                        <!--<input type="text" placeholder = "Add Title" [(ngModel)]="item.title" name="title"> &lt;!&ndash;use NgModel to bind the tile item.title &ndash;&gt;-->\n                        <!--<label>Title</label>-->\n                    <!--</div>-->\n                    <!--<div class = "input-field col s6">-->\n                        <!--<input type="text" placeholder="Add Description" [(ngModel)] = "item.description" name="description" >-->\n                        <!--<label>Description</label>-->\n                    <!--</div>-->\n                <!--</div>-->\n                <!--<input type="submit" value="Submit" class="btn">-->\n            <!--</form>-->\n        <!--</div>-->\n<!--</div>-->\n\n<ion-card>\n    <ion-content>\n        A new wallet has been created!\n    </ion-content>\n</ion-card>'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/register/add-wallet/add-wallet.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */]])
     ], AddWallet);
@@ -1653,17 +1652,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angularfire2_database__ = __webpack_require__(492);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_component__ = __webpack_require__(546);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_home_home__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_currencypage_litecoinpage_litecoinpage__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_currencypage_ethereumpage_ethereumpage__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_currencypage_ripplepage_ripplepage__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_accountpage_accountpage__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_currencypage_currencypage__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tabs_tabs__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tabs_tabs__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_hashtable_hashtable__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_hashtable_hashtable__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_register_add_wallet_add_wallet__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_currencypage_viewcurrency_viewcurrency__ = __webpack_require__(192);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1733,16 +1732,16 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/accountpage/accountpage.module#AccountPageModule', name: 'AccountPage', segment: 'accountpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/bitcoinpage/bitcoinpage.module#BitcoinPageModule', name: 'BitcoinPage', segment: 'bitcoinpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/litecoinpage/litecoinpage.module#LitecoinPageModule', name: 'LitecoinPage', segment: 'litecoinpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/ethereumpage/ethereumpage.module#EthereumPageModule', name: 'EthereumPage', segment: 'ethereumpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/currencypage.module#CurrencyPageModule', name: 'CurrencyPage', segment: 'currencypage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/viewcurrency/viewcurrency.module#CurrencyPageModule', name: 'ViewcurrencyPage', segment: 'viewcurrency', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/ethereumpage/ethereumpage.module#EthereumPageModule', name: 'EthereumPage', segment: 'ethereumpage', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/litecoinpage/litecoinpage.module#LitecoinPageModule', name: 'LitecoinPage', segment: 'litecoinpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/ripplepage/ripplepage.module#RipplePageModule', name: 'RipplePage', segment: 'ripplepage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/add-wallet/add-wallet.module#CurrencyPageModule', name: 'AddWallet', segment: 'add-wallet', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/viewcurrency/viewcurrency.module#CurrencyPageModule', name: 'ViewcurrencyPage', segment: 'viewcurrency', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/hashtable/hashtable.module#CurrencyPageModule', name: 'Hashtable', segment: 'hashtable', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/hashtable/hashtable.module#CurrencyPageModule', name: 'Hashtable', segment: 'hashtable', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/add-wallet/add-wallet.module#CurrencyPageModule', name: 'AddWallet', segment: 'add-wallet', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_5_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseAuth),
@@ -2098,7 +2097,7 @@ var CurrencyPage = /** @class */ (function () {
     };
     CurrencyPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-currencypage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\currencypage.html"*/'<!--\n\n  Generated template for the LoggedinPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n\n\n<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Hello User, {{email}} </ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding> \n\n<ion-card>\n\n    <ion-card-content>\n\n        <h1> Currencies </h1>\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <ion-card-header> Ripple </ion-card-header>\n\n\n\n    <ion-list>\n\n        <!--<button ion-button color="light" round>-->\n\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n\n            <!--Buy-->\n\n        <!--</button>-->\n\n\n\n        <!--<button ion-button color="dark" round>-->\n\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n\n            <!--Sell-->\n\n        <!--</button>-->\n\n\n\n        <button  ion-button color = "dark" round (click)="Ripple_view()"> Trade </button>\n\n    </ion-list>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <ion-card-header> Litecoin </ion-card-header>\n\n\n\n    <ion-list>\n\n        <!--<button ion-button color="light" round>-->\n\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n\n            <!--Buy-->\n\n        <!--</button>-->\n\n\n\n        <!--<button ion-button color="dark" round>-->\n\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n\n            <!--Sell-->\n\n        <!--</button>-->\n\n\n\n        <button  ion-button color = "dark" round (click)="Litecoin_view()"> Trade </button>\n\n    </ion-list>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <ion-card-header> Ethereum </ion-card-header>\n\n\n\n    <ion-list>\n\n        <!--<button ion-button color="light" round>-->\n\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n\n            <!--Buy-->\n\n        <!--</button>-->\n\n\n\n        <!--<button ion-button color="dark" round>-->\n\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n\n            <!--Sell-->\n\n        <!--</button>-->\n\n\n\n        <button  ion-button color = "dark" round (click)="Ethereum_view()"> Trade </button>\n\n\n\n    </ion-list>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <ion-card-header> Bitcoin </ion-card-header>\n\n\n\n    <ion-list>\n\n        <!-- <button ion-button color="light" round>\n\n             <ion-icon name="buy" item-start></ion-icon>\n\n             Buy\n\n         </button>\n\n\n\n         <button ion-button color="dark" round>\n\n             <ion-icon name="sell" item-start></ion-icon>\n\n             Sell\n\n         </button> -->\n\n\n\n        <button  ion-button color = "dark" round (click)="BitCoin_view()"> Trade </button>\n\n\n\n    </ion-list>\n\n</ion-card>\n\n\n\n    <ion-card>\n\n\n\n        <ion-list>\n\n\n\n            <button  ion-button color = "dark" round (click)="Currency_view()"> View Currencies  </button>\n\n\n\n        </ion-list>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n\n\n\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\currencypage.html"*/,
+            selector: 'page-currencypage',template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/currencypage.html"*/'<!--\n  Generated template for the LoggedinPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header>\n    <ion-navbar>\n        <ion-title>Hello User, {{email}} </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <ion-card-content>\n        <div class="item item-image">\n            <img src= "../../assets/imgs/CryptoBanner.png">\n        </div>\n        <h1> Currencies </h1>\n    </ion-card-content>\n\n<ion-card>\n    <ion-card-header> Ripple </ion-card-header>\n\n    <ion-list>\n        <!--<button ion-button color="light" round>-->\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n            <!--Buy-->\n        <!--</button>-->\n\n        <!--<button ion-button color="dark" round>-->\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n            <!--Sell-->\n        <!--</button>-->\n\n        <button  ion-button color = "dark" round (click)="Ripple_view()"> Trade </button>\n    </ion-list>\n</ion-card>\n\n<ion-card>\n    <ion-card-header> Litecoin </ion-card-header>\n\n    <ion-list>\n        <!--<button ion-button color="light" round>-->\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n            <!--Buy-->\n        <!--</button>-->\n\n        <!--<button ion-button color="dark" round>-->\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n            <!--Sell-->\n        <!--</button>-->\n\n        <button  ion-button color = "dark" round (click)="Litecoin_view()"> Trade </button>\n    </ion-list>\n</ion-card>\n\n<ion-card>\n    <ion-card-header> Ethereum </ion-card-header>\n\n    <ion-list>\n        <!--<button ion-button color="light" round>-->\n            <!--<ion-icon name="buy" item-start></ion-icon>-->\n            <!--Buy-->\n        <!--</button>-->\n\n        <!--<button ion-button color="dark" round>-->\n            <!--<ion-icon name="sell" item-start></ion-icon>-->\n            <!--Sell-->\n        <!--</button>-->\n\n        <button  ion-button color = "dark" round (click)="Ethereum_view()"> Trade </button>\n\n    </ion-list>\n</ion-card>\n\n<ion-card>\n    <ion-card-header> Bitcoin </ion-card-header>\n\n    <ion-list>\n        <!-- <button ion-button color="light" round>\n             <ion-icon name="buy" item-start></ion-icon>\n             Buy\n         </button>\n\n         <button ion-button color="dark" round>\n             <ion-icon name="sell" item-start></ion-icon>\n             Sell\n         </button> -->\n\n        <button  ion-button color = "dark" round (click)="BitCoin_view()"> Trade </button>\n\n    </ion-list>\n</ion-card>\n\n    <ion-card>\n\n        <ion-list>\n\n            <button  ion-button color = "dark" round (click)="Currency_view()"> View Currencies  </button>\n\n        </ion-list>\n    </ion-card>\n\n</ion-content>\n\n\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/pages/currencypage/currencypage.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]])
     ], CurrencyPage);
@@ -2144,7 +2143,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n\n\n'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/lindanguyen/Desktop/crypto_v4/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"/Users/lindanguyen/Desktop/crypto_v4/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);

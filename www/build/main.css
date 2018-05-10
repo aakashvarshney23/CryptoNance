@@ -25678,6 +25678,21 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+.my-card .item.item-image {
+  width: 100vw;
+  margin-left: -10px;
+}
+
+.my-card.card {
+  overflow: visible;
+}
+
+.item-image img:first-child {
+  position: relative;
+  width: 100vw !important;
+  left: calc(-50vw + 50%);
+}
+
 body {
   background-color: white;
 }
@@ -25704,4 +25719,19 @@ div {
 
 body {
   background-color: white;
+}
+
+.my-card .item.item-image {
+  width: 100vw;
+  margin-left: -10px;
+}
+
+.my-card.card {
+  overflow: visible;
+}
+
+.item-image img:first-child {
+  position: relative;
+  width: 100vw !important;
+  left: calc(-50vw + 50%);
 }

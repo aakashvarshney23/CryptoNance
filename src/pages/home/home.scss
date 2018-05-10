@@ -22,3 +22,18 @@ body {
   background-color: white;
 }
 
+
+.my-card .item.item-image{
+  width: 100vw;
+  margin-left: -10px;
+}
+
+.my-card.card{
+  overflow: visible;
+}
+
+.item-image img:first-child {
+  position: relative;
+  width: 100vw !important;
+  left: calc(-50vw + 50%);
+}
