@@ -67,824 +67,6 @@ var HomePage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BitcoinPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the BitcoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var bitcoin_val = 9375;
-var BitcoinPage = /** @class */ (function () {
-    function BitcoinPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
-        var _this = this;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.walletService = walletService;
-        this.afs = afs;
-        this.trans = {
-            id: '',
-            TransId: 0,
-            Amount: 0
-        };
-        this.transactionArray = [];
-        this.userId = this.fire.auth.currentUser.uid;
-        this.walletService.getWallets().subscribe(function (wallet) {
-            _this.wallets = wallet;
-            console.log("Wallets from sell", _this.wallets);
-            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
-                var wallet_1 = _a[_i];
-                if (wallet_1.id == _this.userId) {
-                    _this.wallet = wallet_1;
-                    console.log('WALLET ID: ', _this.wallet.id);
-                    console.log("array", wallet_1);
-                }
-                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
-                    _this.wallet2 = wallet_1;
-                    console.log('WALLET2 ID: ', _this.wallet2.id);
-                }
-            }
-            _this.transactionArray = _this.wallet.transaction;
-            //this.transaction = this.wallet.transaction;
-            _this.bitcoinamount = _this.wallet.bitcoinamount;
-            _this.totalamount = _this.wallet.totalamount;
-            _this.bitcoinamount2 = _this.wallet2.bitcoinamount;
-            _this.totalamount2 = _this.wallet2.totalamount;
-            // this.trans_no = this.wallet.trans_no;
-            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
-        });
-    }
-    BitcoinPage.prototype.goback_currencypage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
-    };
-    BitcoinPage.prototype.sell = function () {
-        if ((+this.sellCoins.value * bitcoin_val) > this.bitcoinamount || (+this.sellCoins.value * bitcoin_val) > this.totalamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = Math.abs(+this.sellCoins.value * bitcoin_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
-                totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
-                totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    BitcoinPage.prototype.buy = function () {
-        if ((+this.buyCoins.value * bitcoin_val) > this.totalamount || (+this.buyCoins.value * bitcoin_val) > this.bitcoinamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = -Math.abs(+this.buyCoins.value * bitcoin_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
-                bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
-                bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    BitcoinPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    BitcoinPage.prototype.addTrans = function (transid, amt) {
-        this.trans.TransId = transid;
-        this.trans.Amount = amt;
-        this.walletService.addNewTransaction(this.trans);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
-        __metadata("design:type", Object)
-    ], BitcoinPage.prototype, "sellCoins", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
-        __metadata("design:type", Object)
-    ], BitcoinPage.prototype, "buyCoins", void 0);
-    BitcoinPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-bitcoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Bitcoin Page!\n\n            Current Bitcoin Price: 9753\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
-    ], BitcoinPage);
-    return BitcoinPage;
-}());
-
-//# sourceMappingURL=bitcoinpage.js.map
-
-/***/ }),
-
-/***/ 188:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EthereumPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the BitcoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ethereum_val = 755;
-var EthereumPage = /** @class */ (function () {
-    function EthereumPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
-        var _this = this;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.walletService = walletService;
-        this.afs = afs;
-        this.trans = {
-            id: '',
-            TransId: 0,
-            Amount: 0
-        };
-        this.transactionArray = [];
-        this.userId = this.fire.auth.currentUser.uid;
-        this.walletService.getWallets().subscribe(function (wallet) {
-            _this.wallets = wallet;
-            console.log("Wallets from sell", _this.wallets);
-            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
-                var wallet_1 = _a[_i];
-                if (wallet_1.id == _this.userId) {
-                    _this.wallet = wallet_1;
-                    console.log('WALLET ID: ', _this.wallet.id);
-                    console.log("array", wallet_1);
-                }
-                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
-                    _this.wallet2 = wallet_1;
-                    console.log('WALLET2 ID: ', _this.wallet2.id);
-                }
-            }
-            _this.transactionArray = _this.wallet.transaction;
-            //this.transaction = this.wallet.transaction;
-            _this.ethereumamount = _this.wallet.ethereumamount;
-            _this.totalamount = _this.wallet.totalamount;
-            _this.ethereumamount2 = _this.wallet2.ethereumamount;
-            _this.totalamount2 = _this.wallet2.totalamount;
-            // this.trans_no = this.wallet.trans_no;
-            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
-        });
-    }
-    EthereumPage.prototype.goback_currencypage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
-    };
-    EthereumPage.prototype.sell = function () {
-        if ((+this.sellCoins.value * ethereum_val) > this.ethereumamount || (+this.sellCoins.value * ethereum_val) > this.totalamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = Math.abs(+this.sellCoins.value * ethereum_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                ethereumamount: this.ethereumamount - +this.sellCoins.value * ethereum_val,
-                totalamount: this.totalamount + +this.sellCoins.value * ethereum_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                ethereumamount: this.ethereumamount2 + +this.sellCoins.value * ethereum_val,
-                totalamount: this.totalamount2 - +this.sellCoins.value * ethereum_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    EthereumPage.prototype.buy = function () {
-        if ((+this.buyCoins.value * ethereum_val) > this.totalamount || (+this.buyCoins.value * ethereum_val) > this.ethereumamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = -Math.abs(+this.buyCoins.value * ethereum_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                totalamount: this.totalamount - +this.buyCoins.value * ethereum_val,
-                ethereumamount: this.ethereumamount + +this.buyCoins.value * ethereum_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                totalamount: this.totalamount2 + +this.buyCoins.value * ethereum_val,
-                ethereumamount: this.ethereumamount2 - +this.buyCoins.value * ethereum_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    EthereumPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    EthereumPage.prototype.addTrans = function (transid, amt) {
-        this.trans.TransId = transid;
-        this.trans.Amount = amt;
-        this.walletService.addNewTransaction(this.trans);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
-        __metadata("design:type", Object)
-    ], EthereumPage.prototype, "sellCoins", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
-        __metadata("design:type", Object)
-    ], EthereumPage.prototype, "buyCoins", void 0);
-    EthereumPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ethereumpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ethereum Page!\n\n        Current Ethereum Price: 755\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
-    ], EthereumPage);
-    return EthereumPage;
-}());
-
-//# sourceMappingURL=ethereumpage.js.map
-
-/***/ }),
-
-/***/ 189:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LitecoinPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the BitcoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var litecoin_val = 154;
-var LitecoinPage = /** @class */ (function () {
-    function LitecoinPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
-        var _this = this;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.walletService = walletService;
-        this.afs = afs;
-        this.trans = {
-            id: '',
-            TransId: 0,
-            Amount: 0
-        };
-        this.transactionArray = [];
-        this.userId = this.fire.auth.currentUser.uid;
-        this.walletService.getWallets().subscribe(function (wallet) {
-            _this.wallets = wallet;
-            console.log("Wallets from sell", _this.wallets);
-            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
-                var wallet_1 = _a[_i];
-                if (wallet_1.id == _this.userId) {
-                    _this.wallet = wallet_1;
-                    console.log('WALLET ID: ', _this.wallet.id);
-                    console.log("array", wallet_1);
-                }
-                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
-                    _this.wallet2 = wallet_1;
-                    console.log('WALLET2 ID: ', _this.wallet2.id);
-                }
-            }
-            _this.transactionArray = _this.wallet.transaction;
-            //this.transaction = this.wallet.transaction;
-            _this.litecoinamount = _this.wallet.litecoinamount;
-            _this.totalamount = _this.wallet.totalamount;
-            _this.litecoinamount2 = _this.wallet2.litecoinamount;
-            _this.totalamount2 = _this.wallet2.totalamount;
-            // this.trans_no = this.wallet.trans_no;
-            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
-        });
-    }
-    LitecoinPage.prototype.goback_currencypage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
-    };
-    LitecoinPage.prototype.sell = function () {
-        if ((+this.sellCoins.value * litecoin_val) > this.litecoinamount || (+this.sellCoins.value * litecoin_val) > this.totalamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = Math.abs(+this.sellCoins.value * litecoin_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                litecoinamount: this.litecoinamount - +this.sellCoins.value * litecoin_val,
-                totalamount: this.totalamount + +this.sellCoins.value * litecoin_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                litecoinamount: this.litecoinamount2 + +this.sellCoins.value * litecoin_val,
-                totalamount: this.totalamount2 - +this.sellCoins.value * litecoin_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    LitecoinPage.prototype.buy = function () {
-        if ((+this.buyCoins.value * litecoin_val) > this.totalamount || (+this.buyCoins.value * litecoin_val) > this.litecoinamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = -Math.abs(+this.buyCoins.value * litecoin_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                totalamount: this.totalamount - +this.buyCoins.value * litecoin_val,
-                litecoinamount: this.litecoinamount + +this.buyCoins.value * litecoin_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                totalamount: this.totalamount2 + +this.buyCoins.value * litecoin_val,
-                litecoinamount: this.litecoinamount2 - +this.buyCoins.value * litecoin_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    LitecoinPage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    LitecoinPage.prototype.addTrans = function (transid, amt) {
-        this.trans.TransId = transid;
-        this.trans.Amount = amt;
-        this.walletService.addNewTransaction(this.trans);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
-        __metadata("design:type", Object)
-    ], LitecoinPage.prototype, "sellCoins", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
-        __metadata("design:type", Object)
-    ], LitecoinPage.prototype, "buyCoins", void 0);
-    LitecoinPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-litecoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Litecoin Page!\n\n        Current Litecoin Price: 154\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
-    ], LitecoinPage);
-    return LitecoinPage;
-}());
-
-//# sourceMappingURL=litecoinpage.js.map
-
-/***/ }),
-
-/***/ 190:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RipplePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the BitcoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ripple_val = 154;
-var RipplePage = /** @class */ (function () {
-    function RipplePage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
-        var _this = this;
-        this.alertCtrl = alertCtrl;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.walletService = walletService;
-        this.afs = afs;
-        this.trans = {
-            id: '',
-            TransId: 0,
-            Amount: 0
-        };
-        this.transactionArray = [];
-        this.userId = this.fire.auth.currentUser.uid;
-        this.walletService.getWallets().subscribe(function (wallet) {
-            _this.wallets = wallet;
-            console.log("Wallets from sell", _this.wallets);
-            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
-                var wallet_1 = _a[_i];
-                if (wallet_1.id == _this.userId) {
-                    _this.wallet = wallet_1;
-                    console.log('WALLET ID: ', _this.wallet.id);
-                    console.log("array", wallet_1);
-                }
-                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
-                    _this.wallet2 = wallet_1;
-                    console.log('WALLET2 ID: ', _this.wallet2.id);
-                }
-            }
-            _this.transactionArray = _this.wallet.transaction;
-            //this.transaction = this.wallet.transaction;
-            _this.ripplecurrencyamount = _this.wallet.ripplecurrencyamount;
-            _this.totalamount = _this.wallet.totalamount;
-            _this.ripplecurrencyamount2 = _this.wallet2.ripplecurrencyamount;
-            _this.totalamount2 = _this.wallet2.totalamount;
-            // this.trans_no = this.wallet.trans_no;
-            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
-        });
-    }
-    RipplePage.prototype.goback_currencypage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
-    };
-    RipplePage.prototype.sell = function () {
-        if ((+this.sellCoins.value * ripple_val) > this.ripplecurrencyamount || (+this.sellCoins.value * ripple_val) > this.totalamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = Math.abs(+this.sellCoins.value * ripple_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                ripplecurrencyamount: this.ripplecurrencyamount - +this.sellCoins.value * ripple_val,
-                totalamount: this.totalamount + +this.sellCoins.value * ripple_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                ripplecurrencyamount: this.ripplecurrencyamount2 + +this.sellCoins.value * ripple_val,
-                totalamount: this.totalamount2 - +this.sellCoins.value * ripple_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    RipplePage.prototype.buy = function () {
-        if ((+this.buyCoins.value * ripple_val) > this.totalamount || (+this.buyCoins.value * ripple_val) > this.ripplecurrencyamount2) {
-            this.alert("Invalid Value!");
-        }
-        else {
-            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
-            var A = -Math.abs(+this.buyCoins.value * ripple_val);
-            this.addTrans(T, A);
-            this.transactionArray.push(T);
-            this.afs.collection("USER WALLETS").doc(this.userId).update({
-                totalamount: this.totalamount - +this.buyCoins.value * ripple_val,
-                ripplecurrencyamount: this.ripplecurrencyamount + +this.buyCoins.value * ripple_val,
-                transaction: this.transactionArray
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
-                totalamount: this.totalamount2 + +this.buyCoins.value * ripple_val,
-                ripplecurrencyamount: this.ripplecurrencyamount2 - +this.buyCoins.value * ripple_val
-            })
-                .then(function () {
-                console.log("Sell Amount logged!");
-            })
-                .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
-        }
-    };
-    RipplePage.prototype.alert = function (message) {
-        this.alertCtrl.create({
-            title: 'Info!',
-            subTitle: message,
-            buttons: ['OK']
-        }).present();
-    };
-    RipplePage.prototype.addTrans = function (transid, amt) {
-        this.trans.TransId = transid;
-        this.trans.Amount = amt;
-        this.walletService.addNewTransaction(this.trans);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
-        __metadata("design:type", Object)
-    ], RipplePage.prototype, "sellCoins", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
-        __metadata("design:type", Object)
-    ], RipplePage.prototype, "buyCoins", void 0);
-    RipplePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ripplepage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ripple Page!\n\n        Current Ripple Price: 1\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
-    ], RipplePage);
-    return RipplePage;
-}());
-
-//# sourceMappingURL=ripplepage.js.map
-
-/***/ }),
-
-/***/ 191:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewcurrencyPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mergesort__ = __webpack_require__(466);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-/**
- * Generated class for the LoggedinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ViewcurrencyPage = /** @class */ (function () {
-    function ViewcurrencyPage(walletService, fire, navCtrl, navParams, actionSheetCtrl, afs) {
-        var _this = this;
-        this.walletService = walletService;
-        this.fire = fire;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.actionSheetCtrl = actionSheetCtrl;
-        this.afs = afs;
-        this.dataArray = [];
-        //dataArray: number[];
-        this.data = {
-            id: '',
-            array: this.dataArray
-        };
-        this.walletService.getDatas().subscribe(function (data) {
-            _this.datas = data;
-            console.log("Wallets from sell", _this.data);
-            for (var _i = 0, _a = _this.datas; _i < _a.length; _i++) {
-                var data_1 = _a[_i];
-                if (data_1.id == "Currencies") {
-                    _this.data = data_1;
-                    console.log('IDDDD:', _this.data.id);
-                    _this.dataArray = _this.data.array;
-                    console.log("Currency Array", _this.dataArray);
-                    console.log("Sorted Array", Object(__WEBPACK_IMPORTED_MODULE_4__mergesort__["a" /* default */])(_this.dataArray));
-                    _this.updateArray();
-                }
-            }
-        });
-        // console.log("Currency array", this.dataArray);
-        //
-        // console.log("Sorted Array", MergeSort(this.dataArray));
-        //this.updateArray();
-    }
-    ViewcurrencyPage.prototype.ngOnInit = function () {
-        //this.updateArray();
-    };
-    ViewcurrencyPage.prototype.updateArray = function () {
-        this.afs.collection("Data Storage").doc('Currencies').update({
-            array: Object(__WEBPACK_IMPORTED_MODULE_4__mergesort__["a" /* default */])(this.dataArray)
-        })
-            .then(function () {
-            console.log("Sell Amount logged!");
-        })
-            .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
-    };
-    // MergeSort(){
-    //
-    // }
-    ViewcurrencyPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad LoggedinPage');
-    };
-    ViewcurrencyPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viewcurrency',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/,
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _f || Object])
-    ], ViewcurrencyPage);
-    return ViewcurrencyPage;
-    var _a, _b, _c, _d, _e, _f;
-}());
-
-//# sourceMappingURL=viewcurrency.js.map
-
-/***/ }),
-
-/***/ 192:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AccountPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
@@ -1074,6 +256,828 @@ var AccountPage = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 188:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BitcoinPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the BitcoinPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var bitcoin_val = 9375;
+var BitcoinPage = /** @class */ (function () {
+    function BitcoinPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
+        var _this = this;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.walletService = walletService;
+        this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
+        this.transactionArray = [];
+        this.userId = this.fire.auth.currentUser.uid;
+        this.walletService.getWallets().subscribe(function (wallet) {
+            _this.wallets = wallet;
+            console.log("Wallets from sell", _this.wallets);
+            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
+                var wallet_1 = _a[_i];
+                if (wallet_1.id == _this.userId) {
+                    _this.wallet = wallet_1;
+                    console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
+                }
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
+                    _this.wallet2 = wallet_1;
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
+                }
+            }
+            _this.transactionArray = _this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
+            _this.bitcoinamount = _this.wallet.bitcoinamount;
+            _this.totalamount = _this.wallet.totalamount;
+            _this.bitcoinamount2 = _this.wallet2.bitcoinamount;
+            _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+        });
+    }
+    BitcoinPage.prototype.goback_currencypage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
+    };
+    BitcoinPage.prototype.sell = function () {
+        if ((+this.sellCoins.value * bitcoin_val) > this.bitcoinamount || (+this.sellCoins.value * bitcoin_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = Math.abs(+this.sellCoins.value * bitcoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                bitcoinamount: this.bitcoinamount - +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount + +this.sellCoins.value * bitcoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                bitcoinamount: this.bitcoinamount2 + +this.sellCoins.value * bitcoin_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * bitcoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    BitcoinPage.prototype.buy = function () {
+        if ((+this.buyCoins.value * bitcoin_val) > this.totalamount || (+this.buyCoins.value * bitcoin_val) > this.bitcoinamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * bitcoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount + +this.buyCoins.value * bitcoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * bitcoin_val,
+                bitcoinamount: this.bitcoinamount2 - +this.buyCoins.value * bitcoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    BitcoinPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    BitcoinPage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
+        __metadata("design:type", Object)
+    ], BitcoinPage.prototype, "sellCoins", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
+        __metadata("design:type", Object)
+    ], BitcoinPage.prototype, "buyCoins", void 0);
+    BitcoinPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-bitcoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n    <ion-card>\n\n        <ion-card-content> <!-- presentActionSheet() -->\n\n             Welcome to the Bitcoin Page!\n\n            Current Bitcoin Price: 9753\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\bitcoinpage\bitcoinpage.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], BitcoinPage);
+    return BitcoinPage;
+}());
+
+//# sourceMappingURL=bitcoinpage.js.map
+
+/***/ }),
+
+/***/ 189:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EthereumPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the BitcoinPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ethereum_val = 755;
+var EthereumPage = /** @class */ (function () {
+    function EthereumPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
+        var _this = this;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.walletService = walletService;
+        this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
+        this.transactionArray = [];
+        this.userId = this.fire.auth.currentUser.uid;
+        this.walletService.getWallets().subscribe(function (wallet) {
+            _this.wallets = wallet;
+            console.log("Wallets from sell", _this.wallets);
+            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
+                var wallet_1 = _a[_i];
+                if (wallet_1.id == _this.userId) {
+                    _this.wallet = wallet_1;
+                    console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
+                }
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
+                    _this.wallet2 = wallet_1;
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
+                }
+            }
+            _this.transactionArray = _this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
+            _this.ethereumamount = _this.wallet.ethereumamount;
+            _this.totalamount = _this.wallet.totalamount;
+            _this.ethereumamount2 = _this.wallet2.ethereumamount;
+            _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+        });
+    }
+    EthereumPage.prototype.goback_currencypage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
+    };
+    EthereumPage.prototype.sell = function () {
+        if ((+this.sellCoins.value * ethereum_val) > this.ethereumamount || (+this.sellCoins.value * ethereum_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = Math.abs(+this.sellCoins.value * ethereum_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                ethereumamount: this.ethereumamount - +this.sellCoins.value * ethereum_val,
+                totalamount: this.totalamount + +this.sellCoins.value * ethereum_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                ethereumamount: this.ethereumamount2 + +this.sellCoins.value * ethereum_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * ethereum_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    EthereumPage.prototype.buy = function () {
+        if ((+this.buyCoins.value * ethereum_val) > this.totalamount || (+this.buyCoins.value * ethereum_val) > this.ethereumamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * ethereum_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * ethereum_val,
+                ethereumamount: this.ethereumamount + +this.buyCoins.value * ethereum_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * ethereum_val,
+                ethereumamount: this.ethereumamount2 - +this.buyCoins.value * ethereum_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    EthereumPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    EthereumPage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
+        __metadata("design:type", Object)
+    ], EthereumPage.prototype, "sellCoins", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
+        __metadata("design:type", Object)
+    ], EthereumPage.prototype, "buyCoins", void 0);
+    EthereumPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-ethereumpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ethereum Page!\n\n        Current Ethereum Price: 755\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ethereumpage\ethereumpage.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], EthereumPage);
+    return EthereumPage;
+}());
+
+//# sourceMappingURL=ethereumpage.js.map
+
+/***/ }),
+
+/***/ 190:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LitecoinPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the BitcoinPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var litecoin_val = 154;
+var LitecoinPage = /** @class */ (function () {
+    function LitecoinPage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
+        var _this = this;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.walletService = walletService;
+        this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
+        this.transactionArray = [];
+        this.userId = this.fire.auth.currentUser.uid;
+        this.walletService.getWallets().subscribe(function (wallet) {
+            _this.wallets = wallet;
+            console.log("Wallets from sell", _this.wallets);
+            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
+                var wallet_1 = _a[_i];
+                if (wallet_1.id == _this.userId) {
+                    _this.wallet = wallet_1;
+                    console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
+                }
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
+                    _this.wallet2 = wallet_1;
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
+                }
+            }
+            _this.transactionArray = _this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
+            _this.litecoinamount = _this.wallet.litecoinamount;
+            _this.totalamount = _this.wallet.totalamount;
+            _this.litecoinamount2 = _this.wallet2.litecoinamount;
+            _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+        });
+    }
+    LitecoinPage.prototype.goback_currencypage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
+    };
+    LitecoinPage.prototype.sell = function () {
+        if ((+this.sellCoins.value * litecoin_val) > this.litecoinamount || (+this.sellCoins.value * litecoin_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = Math.abs(+this.sellCoins.value * litecoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                litecoinamount: this.litecoinamount - +this.sellCoins.value * litecoin_val,
+                totalamount: this.totalamount + +this.sellCoins.value * litecoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                litecoinamount: this.litecoinamount2 + +this.sellCoins.value * litecoin_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * litecoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    LitecoinPage.prototype.buy = function () {
+        if ((+this.buyCoins.value * litecoin_val) > this.totalamount || (+this.buyCoins.value * litecoin_val) > this.litecoinamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * litecoin_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * litecoin_val,
+                litecoinamount: this.litecoinamount + +this.buyCoins.value * litecoin_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * litecoin_val,
+                litecoinamount: this.litecoinamount2 - +this.buyCoins.value * litecoin_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    LitecoinPage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    LitecoinPage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
+        __metadata("design:type", Object)
+    ], LitecoinPage.prototype, "sellCoins", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
+        __metadata("design:type", Object)
+    ], LitecoinPage.prototype, "buyCoins", void 0);
+    LitecoinPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-litecoinpage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Litecoin Page!\n\n        Current Litecoin Price: 154\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\litecoinpage\litecoinpage.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], LitecoinPage);
+    return LitecoinPage;
+}());
+
+//# sourceMappingURL=litecoinpage.js.map
+
+/***/ }),
+
+/***/ 191:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RipplePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the BitcoinPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ripple_val = 154;
+var RipplePage = /** @class */ (function () {
+    function RipplePage(alertCtrl, fire, navCtrl, navParams, walletService, afs) {
+        var _this = this;
+        this.alertCtrl = alertCtrl;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.walletService = walletService;
+        this.afs = afs;
+        this.trans = {
+            id: '',
+            TransId: 0,
+            Amount: 0
+        };
+        this.transactionArray = [];
+        this.userId = this.fire.auth.currentUser.uid;
+        this.walletService.getWallets().subscribe(function (wallet) {
+            _this.wallets = wallet;
+            console.log("Wallets from sell", _this.wallets);
+            for (var _i = 0, _a = _this.wallets; _i < _a.length; _i++) {
+                var wallet_1 = _a[_i];
+                if (wallet_1.id == _this.userId) {
+                    _this.wallet = wallet_1;
+                    console.log('WALLET ID: ', _this.wallet.id);
+                    console.log("array", wallet_1);
+                }
+                if (wallet_1.id == 'VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1') {
+                    _this.wallet2 = wallet_1;
+                    console.log('WALLET2 ID: ', _this.wallet2.id);
+                }
+            }
+            _this.transactionArray = _this.wallet.transaction;
+            //this.transaction = this.wallet.transaction;
+            _this.ripplecurrencyamount = _this.wallet.ripplecurrencyamount;
+            _this.totalamount = _this.wallet.totalamount;
+            _this.ripplecurrencyamount2 = _this.wallet2.ripplecurrencyamount;
+            _this.totalamount2 = _this.wallet2.totalamount;
+            // this.trans_no = this.wallet.trans_no;
+            //this.transaction = this.wallet.transaction[this.wallet.trans_no];
+        });
+    }
+    RipplePage.prototype.goback_currencypage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__currencypage__["a" /* CurrencyPage */]);
+    };
+    RipplePage.prototype.sell = function () {
+        if ((+this.sellCoins.value * ripple_val) > this.ripplecurrencyamount || (+this.sellCoins.value * ripple_val) > this.totalamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = Math.abs(+this.sellCoins.value * ripple_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                ripplecurrencyamount: this.ripplecurrencyamount - +this.sellCoins.value * ripple_val,
+                totalamount: this.totalamount + +this.sellCoins.value * ripple_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                ripplecurrencyamount: this.ripplecurrencyamount2 + +this.sellCoins.value * ripple_val,
+                totalamount: this.totalamount2 - +this.sellCoins.value * ripple_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    RipplePage.prototype.buy = function () {
+        if ((+this.buyCoins.value * ripple_val) > this.totalamount || (+this.buyCoins.value * ripple_val) > this.ripplecurrencyamount2) {
+            this.alert("Invalid Value!");
+        }
+        else {
+            var T = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+            var A = -Math.abs(+this.buyCoins.value * ripple_val);
+            this.addTrans(T, A);
+            this.transactionArray.push(T);
+            this.afs.collection("USER WALLETS").doc(this.userId).update({
+                totalamount: this.totalamount - +this.buyCoins.value * ripple_val,
+                ripplecurrencyamount: this.ripplecurrencyamount + +this.buyCoins.value * ripple_val,
+                transaction: this.transactionArray
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+            this.afs.collection("USER WALLETS").doc('VAyYAeU9r7YZ2J8tg1aUXc1k3Bk1').update({
+                totalamount: this.totalamount2 + +this.buyCoins.value * ripple_val,
+                ripplecurrencyamount: this.ripplecurrencyamount2 - +this.buyCoins.value * ripple_val
+            })
+                .then(function () {
+                console.log("Sell Amount logged!");
+            })
+                .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    };
+    RipplePage.prototype.alert = function (message) {
+        this.alertCtrl.create({
+            title: 'Info!',
+            subTitle: message,
+            buttons: ['OK']
+        }).present();
+    };
+    RipplePage.prototype.addTrans = function (transid, amt) {
+        this.trans.TransId = transid;
+        this.trans.Amount = amt;
+        this.walletService.addNewTransaction(this.trans);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('sellamount'),
+        __metadata("design:type", Object)
+    ], RipplePage.prototype, "sellCoins", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('buyamount'),
+        __metadata("design:type", Object)
+    ], RipplePage.prototype, "buyCoins", void 0);
+    RipplePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-ripplepage',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/'<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n\n    <meta charset="UTF-8">\n\n    <title>Title</title>\n\n</head>\n\n<body>\n\n\n\n<button ion-button icon-only (click)="goback_currencypage();">\n\n    <ion-icon name="arrow-back"></ion-icon>\n\n</button>\n\n\n\n<ion-card>\n\n    <ion-card-content> <!-- presentActionSheet() -->\n\n        Welcome to the Ripple Page!\n\n        Current Ripple Price: 1\n\n    </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Sell Amount</ion-label>\n\n            <ion-input type="number" #sellamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="sell()">Sell</button>\n\n\n\n    </div>\n\n\n\n    <div padding>\n\n        <ion-item>\n\n            <ion-label floating>Buy Amount</ion-label>\n\n            <ion-input type="number" #buyamount></ion-input>\n\n        </ion-item>\n\n        <button block ion-button (click)="buy()">Buy</button>\n\n    </div>\n\n\n\n</ion-card>\n\n\n\n</body>\n\n</html>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\ripplepage\ripplepage.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], RipplePage);
+    return RipplePage;
+}());
+
+//# sourceMappingURL=ripplepage.js.map
+
+/***/ }),
+
+/***/ 192:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewcurrencyPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mergesort__ = __webpack_require__(466);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__(42);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+/**
+ * Generated class for the LoggedinPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ViewcurrencyPage = /** @class */ (function () {
+    function ViewcurrencyPage(walletService, fire, navCtrl, navParams, actionSheetCtrl, afs) {
+        var _this = this;
+        this.walletService = walletService;
+        this.fire = fire;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.afs = afs;
+        this.dataArray = [];
+        //dataArray: number[];
+        this.data = {
+            id: '',
+            array: this.dataArray
+        };
+        this.walletService.getDatas().subscribe(function (data) {
+            _this.datas = data;
+            console.log("Wallets from sell", _this.data);
+            for (var _i = 0, _a = _this.datas; _i < _a.length; _i++) {
+                var data_1 = _a[_i];
+                if (data_1.id == "Currencies") {
+                    _this.data = data_1;
+                    console.log('IDDDD:', _this.data.id);
+                    _this.dataArray = _this.data.array;
+                    console.log("Currency Array", _this.dataArray);
+                    console.log("Sorted Array", Object(__WEBPACK_IMPORTED_MODULE_4__mergesort__["a" /* default */])(_this.dataArray));
+                    _this.updateArray();
+                }
+            }
+        });
+        // console.log("Currency array", this.dataArray);
+        //
+        // console.log("Sorted Array", MergeSort(this.dataArray));
+        //this.updateArray();
+    }
+    ViewcurrencyPage.prototype.ngOnInit = function () {
+        //this.updateArray();
+    };
+    ViewcurrencyPage.prototype.updateArray = function () {
+        this.afs.collection("Data Storage").doc('Currencies').update({
+            array: Object(__WEBPACK_IMPORTED_MODULE_4__mergesort__["a" /* default */])(this.dataArray)
+        })
+            .then(function () {
+            console.log("Sell Amount logged!");
+        })
+            .catch(function (error) {
+            console.error("Error writing document: ", error);
+        });
+    };
+    // MergeSort(){
+    //
+    // }
+    ViewcurrencyPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoggedinPage');
+    };
+    ViewcurrencyPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-viewcurrency',template:/*ion-inline-start:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/'<ion-content padding>\n\n\n\n    <div *ngIf= "datas?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->\n\n\n\n        <ul *ngFor="let data of datas" class="collection"> <!-- run the loop -->\n\n\n\n            <div *ngIf = " data.id == \'Currencies\'; else noItems" >\n\n                <ion-card>\n\n                    <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->\n\n                    <ion-card>\n\n                        {{data.array[0]}}\n\n                    </ion-card>\n\n                    <ion-card>\n\n                        {{data.array[1]}}\n\n                    </ion-card>\n\n                    <ion-card>\n\n                        {{data.array[2]}}\n\n                    </ion-card>\n\n                    <ion-card>\n\n                        {{data.array[3]}}\n\n                    </ion-card>\n\n\n\n                </ion-card>\n\n            </div>\n\n\n\n        </ul>\n\n\n\n    </div>\n\n\n\n    <ng-template #noWallets> <!-- run the else statement -->\n\n        <hr>\n\n        <h5> There are no items to list </h5>\n\n    </ng-template>\n\n\n\n<ion-content>'/*ion-inline-end:"C:\Users\Nikkitha\WebstormProjects\cryptonance_v3\src\pages\currencypage\viewcurrency\viewcurrency.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_hash_table_hash_table__["a" /* HashTableProvider */],
+            __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */]])
+    ], ViewcurrencyPage);
+    return ViewcurrencyPage;
+}());
+
+//# sourceMappingURL=viewcurrency.js.map
+
+/***/ }),
+
 /***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1240,7 +1244,7 @@ var LoginPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__currencypage_currencypage__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__accountpage_accountpage__ = __webpack_require__(187);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1410,47 +1414,47 @@ webpackEmptyAsyncContext.id = 206;
 
 var map = {
 	"../pages/accountpage/accountpage.module": [
-		550,
+		547,
 		11
 	],
 	"../pages/currencypage/bitcoinpage/bitcoinpage.module": [
-		557,
+		548,
 		10
 	],
 	"../pages/currencypage/currencypage.module": [
-		547,
+		549,
 		9
 	],
 	"../pages/currencypage/ethereumpage/ethereumpage.module": [
-		548,
+		550,
 		8
 	],
 	"../pages/currencypage/litecoinpage/litecoinpage.module": [
-		552,
+		551,
 		7
 	],
 	"../pages/currencypage/ripplepage/ripplepage.module": [
-		549,
+		552,
 		6
 	],
 	"../pages/currencypage/viewcurrency/viewcurrency.module": [
-		551,
+		553,
 		5
 	],
 	"../pages/hashtable/hashtable.module": [
-		553,
+		554,
 		4
 	],
 	"../pages/login/login.module": [
-		554,
+		555,
 		3
 	],
 	"../pages/register/add-wallet/add-wallet.module": [
-		555,
+		556,
 		2
 	],
 	"../pages/register/register.module": [
-		556,
+		557,
 		1
 	],
 	"../pages/tabs/tabs.module": [
@@ -1561,17 +1565,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_home_home__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_currencypage_litecoinpage_litecoinpage__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_currencypage_ethereumpage_ethereumpage__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_currencypage_ripplepage_ripplepage__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_accountpage_accountpage__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_currencypage_litecoinpage_litecoinpage__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_currencypage_ethereumpage_ethereumpage__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_currencypage_ripplepage_ripplepage__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_accountpage_accountpage__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_currencypage_currencypage__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tabs_tabs__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_hash_table_hash_table__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_hashtable_hashtable__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_register_add_wallet_add_wallet__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_currencypage_viewcurrency_viewcurrency__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_currencypage_viewcurrency_viewcurrency__ = __webpack_require__(192);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1637,17 +1641,17 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_8__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */], {}, {
                     links: [
+                        { loadChildren: '../pages/accountpage/accountpage.module#AccountPageModule', name: 'AccountPage', segment: 'accountpage', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/bitcoinpage/bitcoinpage.module#BitcoinPageModule', name: 'BitcoinPage', segment: 'bitcoinpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/currencypage.module#CurrencyPageModule', name: 'CurrencyPage', segment: 'currencypage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/ethereumpage/ethereumpage.module#EthereumPageModule', name: 'EthereumPage', segment: 'ethereumpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/ripplepage/ripplepage.module#RipplePageModule', name: 'RipplePage', segment: 'ripplepage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/accountpage/accountpage.module#AccountPageModule', name: 'AccountPage', segment: 'accountpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/viewcurrency/viewcurrency.module#CurrencyPageModule', name: 'ViewcurrencyPage', segment: 'viewcurrency', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currencypage/litecoinpage/litecoinpage.module#LitecoinPageModule', name: 'LitecoinPage', segment: 'litecoinpage', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/ripplepage/ripplepage.module#RipplePageModule', name: 'RipplePage', segment: 'ripplepage', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currencypage/viewcurrency/viewcurrency.module#CurrencyPageModule', name: 'ViewcurrencyPage', segment: 'viewcurrency', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hashtable/hashtable.module#CurrencyPageModule', name: 'Hashtable', segment: 'hashtable', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/add-wallet/add-wallet.module#CurrencyPageModule', name: 'AddWallet', segment: 'add-wallet', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currencypage/bitcoinpage/bitcoinpage.module#BitcoinPageModule', name: 'BitcoinPage', segment: 'bitcoinpage', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -1950,11 +1954,11 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage_ethereumpage_ethereumpage__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__currencypage_litecoinpage_litecoinpage__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__currencypage_ripplepage_ripplepage__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__viewcurrency_viewcurrency__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currencypage_bitcoinpage_bitcoinpage__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currencypage_ethereumpage_ethereumpage__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__currencypage_litecoinpage_litecoinpage__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__currencypage_ripplepage_ripplepage__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__viewcurrency_viewcurrency__ = __webpack_require__(192);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

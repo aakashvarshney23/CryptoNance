@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-content padding>
 
-</body>
-</html>
+    <div *ngIf= "datas?.length > 0; else noWallets" > <!-- if the length of the fetched data is greater than zero -->
+
+        <ul *ngFor="let data of datas" class="collection"> <!-- run the loop -->
+
+            <div *ngIf = " data.id == 'Currencies'; else noItems" >
+                <ion-card>
+                    <!--<li class = "collection-item"> <strong> {{items.title}}: </strong> {{items.description}} </li> &lt;!&ndash; trying to get the item field &ndash;&gt;-->
+                    <ion-card>
+                        {{data.array[0]}}
+                    </ion-card>
+                    <ion-card>
+                        {{data.array[1]}}
+                    </ion-card>
+                    <ion-card>
+                        {{data.array[2]}}
+                    </ion-card>
+                    <ion-card>
+                        {{data.array[3]}}
+                    </ion-card>
+
+                </ion-card>
+            </div>
+
+        </ul>
+
+    </div>
+
+    <ng-template #noWallets> <!-- run the else statement -->
+        <hr>
+        <h5> There are no items to list </h5>
+    </ng-template>
+
+<ion-content>
