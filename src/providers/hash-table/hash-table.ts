@@ -29,6 +29,7 @@ import { switchMap } from 'rxjs/operators';
 import { Wallet } from '../../app/models/Wallet'; //export allows use in other files
 import {Transaction} from "../../app/models/Transaction";
 import { AngularFireAuth } from 'angularfire2/auth';
+import {Data} from "../../app/models/Data";
 
 import * as firebase from 'firebase/app';
 
@@ -53,6 +54,10 @@ export class HashTableProvider {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~
     transCollection: AngularFirestoreCollection<Transaction>; //type: item
     transactions: Observable<Transaction[]>;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    dataCollection: AngularFirestoreCollection<Data>;
+    datas: Observable<Data[]>;
 
      constructor(public afs: AngularFirestore,
                  public afAuth: AngularFireAuth){
@@ -109,6 +114,18 @@ export class HashTableProvider {
                  return data;
              });
          });
+
+         this.dataCollection = this.afs.collection('Data Storage'); //ref()
+
+         this.datas = this.dataCollection.snapshotChanges().map(changes => {
+             //use snapshot changes and map the id
+             //items is the collection
+             return changes.map(a => {
+                 const data = a.payload.doc.data() as Data; //Wallet comes from the models folder
+                 data.id = a.payload.doc.id; //how you get the doc id
+                 return data;
+             });
+         })
      }
 
     // setUID() {
@@ -152,6 +169,10 @@ export class HashTableProvider {
 
     addNewTransaction(trans: Transaction) {
         this.transCollection.add(trans);
+    }
+
+    getDatas() {
+        return this.datas;
     }
 
     // getWalletDoc() : AngularFirestoreDocument<Wallet> {

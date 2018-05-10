@@ -25,7 +25,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 import {HashTableProvider} from '../providers/hash-table/hash-table';
 import {Hashtable} from '../pages/hashtable/hashtable'
 import {AddWallet} from "../pages/register/add-wallet/add-wallet";
-
+import {ViewcurrencyPage} from "../pages/currencypage/viewcurrency/viewcurrency";
 
 const firebaseAuth = {
     apiKey: "AIzaSyC4bTy3yTV6NAdtLTLi8yZSiXc7bAv_nYU",
@@ -52,7 +52,8 @@ const firebaseAuth = {
         RipplePage,
         TabsPage,
         Hashtable,
-        AddWallet
+        AddWallet,
+        ViewcurrencyPage
     ],
     imports: [
         BrowserModule,
@@ -78,7 +79,8 @@ const firebaseAuth = {
         RipplePage, 
         TabsPage,
         Hashtable,
-        AddWallet
+        AddWallet,
+        ViewcurrencyPage
     ],
     providers: [
         StatusBar,

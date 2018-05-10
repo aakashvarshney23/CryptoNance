@@ -1,14 +1,14 @@
 webpackJsonp([7],{
 
-/***/ 549:
+/***/ 552:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EthereumPageModule", function() { return EthereumPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LitecoinPageModule", function() { return LitecoinPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ethereumpage__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__litecoinpage__ = __webpack_require__(189);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var EthereumPageModule = /** @class */ (function () {
-    function EthereumPageModule() {
+var LitecoinPageModule = /** @class */ (function () {
+    function LitecoinPageModule() {
     }
-    EthereumPageModule = __decorate([
+    LitecoinPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__ethereumpage__["a" /* EthereumPage */],
+                __WEBPACK_IMPORTED_MODULE_2__litecoinpage__["a" /* LitecoinPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ethereumpage__["a" /* EthereumPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__litecoinpage__["a" /* LitecoinPage */]),
             ],
         })
-    ], EthereumPageModule);
-    return EthereumPageModule;
+    ], LitecoinPageModule);
+    return LitecoinPageModule;
 }());
 
-//# sourceMappingURL=ethereumpage.module.js.map
+//# sourceMappingURL=litecoinpage.module.js.map
 
 /***/ })
 

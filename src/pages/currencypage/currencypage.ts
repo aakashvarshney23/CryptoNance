@@ -8,6 +8,7 @@ import {BitcoinPage} from "../currencypage/bitcoinpage/bitcoinpage";
 import {EthereumPage} from "../currencypage/ethereumpage/ethereumpage";
 import {LitecoinPage} from "../currencypage/litecoinpage/litecoinpage";
 import {RipplePage} from "../currencypage/ripplepage/ripplepage";
+import {ViewcurrencyPage} from "./viewcurrency/viewcurrency";
 
 /**
  * Generated class for the LoggedinPage page.
@@ -85,5 +86,9 @@ export class CurrencyPage {
     Ripple_view(){
         //this.presentActionSheet();
         this.navCtrl.setRoot(RipplePage);
+    }
+
+    Currency_view(){
+        this.navCtrl.setRoot(ViewcurrencyPage);
     }
 }
