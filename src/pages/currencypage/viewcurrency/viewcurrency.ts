@@ -8,6 +8,7 @@ import {Transaction} from "../../../app/models/Transaction";
 import {Wallet} from "../../../app/models/Wallet";
 import {Data} from "../../../app/models/Data";
 import {AngularFirestore} from "angularfire2/firestore";
+import {CurrencyPage} from "../currencypage";
 
 
 /**
@@ -52,12 +53,12 @@ constructor(private walletService: HashTableProvider,
 
     this.walletService.getDatas().subscribe((data) => {
         this.datas = data;
-        console.log("Wallets from sell", this.data);
+        console.log("Currency stuff", this.data);
         for (let data of this.datas) {
 
             if (data.id == "Currencies") {
                 this.data = data;
-                console.log('IDDDD:', this.data.id);
+                console.log('ID1:', this.data.id);
 
                 this.dataArray = this.data.array;
                 console.log("Currency Array", this.dataArray);
@@ -102,4 +103,8 @@ constructor(private walletService: HashTableProvider,
         console.log('ionViewDidLoad LoggedinPage');
     }
 
+
+    goback_currencypage(){
+        this.navCtrl.push(CurrencyPage);
+    }
 }

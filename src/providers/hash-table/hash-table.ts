@@ -30,6 +30,7 @@ import { Wallet } from '../../app/models/Wallet'; //export allows use in other f
 import {Transaction} from "../../app/models/Transaction";
 import { AngularFireAuth } from 'angularfire2/auth';
 import {Data} from "../../app/models/Data";
+import {Hash} from "../../app/models/Hash";
 
 import * as firebase from 'firebase/app';
 
@@ -58,6 +59,10 @@ export class HashTableProvider {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     dataCollection: AngularFirestoreCollection<Data>;
     datas: Observable<Data[]>;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    hashCollection: AngularFirestoreCollection<Hash>;
+    hashs: Observable<Hash[]>;
 
      constructor(public afs: AngularFirestore,
                  public afAuth: AngularFireAuth){
@@ -126,6 +131,19 @@ export class HashTableProvider {
                  return data;
              });
          })
+
+         this.hashCollection = this.afs.collection('Hash Data'); //ref()
+
+         this.hashs = this.hashCollection.snapshotChanges().map(changes => {
+             //use snapshot changes and map the id
+             //items is the collection
+             return changes.map(a => {
+                 const data = a.payload.doc.data() as Hash; //Wallet comes from the models folder
+                 data.id = a.payload.doc.id; //how you get the doc id
+                 return data;
+             });
+         })
+
      }
 
     // setUID() {
@@ -173,6 +191,10 @@ export class HashTableProvider {
 
     getDatas() {
         return this.datas;
+    }
+
+    getHashs() {
+        return this.hashs;
     }
 
     // getWalletDoc() : AngularFirestoreDocument<Wallet> {
