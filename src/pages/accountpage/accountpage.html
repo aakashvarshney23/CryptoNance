@@ -26,6 +26,13 @@
             <ul>Litecoin Currency Amount : {{wallet.litecoinamount}}</ul>
             <ul>Ripple Currency Amount : {{wallet.ripplecurrencyamount}}</ul>
             <ul>TOTAL AMOUNT : {{wallet.totalamount}}</ul>
+
+            <ul>
+                TRANSACTIONS:
+                <ion-item *ngFor="let item of wallet.transaction;">
+                    {{item}}
+                </ion-item>
+             </ul>
         </ion-card>
     </div>
 

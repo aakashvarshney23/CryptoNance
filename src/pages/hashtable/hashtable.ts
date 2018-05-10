@@ -98,7 +98,7 @@ export class Hashtable implements OnInit{
     ionViewDidLoad() {
         // var i;
         // for(i=0; i<1000; i++) {
-        //     this.initialArray.push(0);
+        //     this.initialArray.push(null);
         // }
         // console.log('ionViewDidLoad Hashtable');
         // this.afs.collection("Hash Data").doc('Hashtable').update({
